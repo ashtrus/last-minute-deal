@@ -3,7 +3,6 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import store from './store';
 import { registerScreens } from './screens';
-import { YellowBox } from 'react-native';
 
 import { noNavigatorStyle } from './common/styles';
 import colors from './common/colors';
@@ -18,19 +17,15 @@ export default class App extends Component {
 		store.subscribe(this.onStoreUpdate);
 	}
 
-	/* eslint-disable no-undef */
 	onStoreUpdate = async () => {
 		const state = store.getState();
-		const { rootNavigation, navigation } = state;
-		const { root } = rootNavigation;
-		const { storageLoaded } = navigation;
+		const { rootNavigation: { root }, navigation: { storageLoaded } } = state;
 
 		if (root !== this.currentRoot && storageLoaded) {
 			this.currentRoot = root;
 			iconsLoaded.then(() => this.startApp(root));
 		}
 	};
-	/* eslint-disable no-undef */
 
 	startApp(root) {
 		switch (root) {
@@ -38,7 +33,7 @@ export default class App extends Component {
 				Navigation.startSingleScreenApp({
 					screen: {
 						label: 'Home',
-						screen: 'bball.StartPage',
+						screen: 'LastMinuteDeal.StartPage',
 						title: 'Last Minute Deals',
 						navigatorStyle: noNavigatorStyle
 					},
@@ -51,7 +46,7 @@ export default class App extends Component {
 						{
 							label: 'Home',
 							title: 'Appointment ASAP',
-							screen: 'bball.DashboardPage',
+							screen: 'LastMinuteDeal.DashboardPage',
 							icon: iconsMap.home,
 							navigatorButtons: {
 								leftButtons: [
@@ -65,19 +60,19 @@ export default class App extends Component {
 						{
 							label: 'Map',
 							title: 'Map',
-							screen: 'bball.MapPage',
+							screen: 'LastMinuteDeal.MapPage',
 							icon: iconsMap.map
 						},
 						{
 							label: 'Receipts',
 							title: 'Receipts',
-							screen: 'bball.ReceiptsPage',
+							screen: 'LastMinuteDeal.ReceiptsPage',
 							icon: iconsMap.receipt
 						},
 						{
 							label: 'Settings',
 							title: 'Settings',
-							screen: 'bball.SettingsPage',
+							screen: 'LastMinuteDeal.SettingsPage',
 							icon: iconsMap.settings
 						}
 					],
@@ -101,7 +96,7 @@ export default class App extends Component {
 						{
 							label: 'Home',
 							title: 'Appointment ASAP',
-							screen: 'bball.CompanyDashboardPage',
+							screen: 'LastMinuteDeal.CompanyDashboardPage',
 							icon: iconsMap.home,
 							navigatorButtons: {
 								leftButtons: [
@@ -115,13 +110,13 @@ export default class App extends Component {
 						{
 							label: 'Receipts',
 							title: 'Receipts',
-							screen: 'bball.ReceiptsPage',
+							screen: 'LastMinuteDeal.ReceiptsPage',
 							icon: iconsMap.receipt
 						},
 						{
 							label: 'Settings',
 							title: 'Settings',
-							screen: 'bball.CompanySettingsPage',
+							screen: 'LastMinuteDeal.CompanySettingsPage',
 							icon: iconsMap.settings
 						}
 					],
@@ -142,7 +137,7 @@ export default class App extends Component {
 			default:
 				Navigation.startSingleScreenApp({
 					screen: {
-						screen: 'bball.StartPage',
+						screen: 'LastMinuteDeal.StartPage',
 						title: 'Welcome',
 						navigatorStyle: noNavigatorStyle
 					},
@@ -152,14 +147,3 @@ export default class App extends Component {
 		}
 	}
 }
-
-// TODO: Remove this when we upgrade to react-native > 0.56.0
-// https://github.com/facebook/react-native/issues/18868
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
-
-YellowBox.ignoreWarnings([
-	'Warning: componentWillReceiveProps is deprecated',
-	'Warning: componentWillUpdate',
-	'Module RCTImageLoader requires',
-	'RCTBridge required dispatch_sync'
-]);
