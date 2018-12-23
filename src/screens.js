@@ -14,62 +14,62 @@ import CompanyDetailsPage from './Company/Details/DetailsPage';
 
 export const registerScreens = (store, Provider) => {
 	Navigation.registerComponent(
-		'bball.StartPage',
+		'LastMinuteDeal.StartPage',
 		() => StartPage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.DashboardPage',
+		'LastMinuteDeal.DashboardPage',
 		() => DashboardPage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.FiltersPopup',
+		'LastMinuteDeal.FiltersPopup',
 		() => FiltersPopup,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.SinglePage',
+		'LastMinuteDeal.SinglePage',
 		() => SinglePage,
 		store,
 		Provider
 	);
-	Navigation.registerComponent('bball.MapPage', () => MapPage, store, Provider);
+	Navigation.registerComponent('LastMinuteDeal.MapPage', () => MapPage, store, Provider);
 	Navigation.registerComponent(
-		'bball.UserProfilePage',
+		'LastMinuteDeal.UserProfilePage',
 		() => UserProfilePage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.SettingsPage',
+		'LastMinuteDeal.SettingsPage',
 		() => SettingsPage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.ReceiptsPage',
+		'LastMinuteDeal.ReceiptsPage',
 		() => ReceiptsPage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.CompanyDashboardPage',
+		'LastMinuteDeal.CompanyDashboardPage',
 		() => CompanyDashboardPage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.CompanySettingsPage',
+		'LastMinuteDeal.CompanySettingsPage',
 		() => CompanySettingsPage,
 		store,
 		Provider
 	);
 	Navigation.registerComponent(
-		'bball.CompanyDetailsPage',
+		'LastMinuteDeal.CompanyDetailsPage',
 		() => CompanyDetailsPage,
 		store,
 		Provider
