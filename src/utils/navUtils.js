@@ -5,14 +5,14 @@ import { noNavigatorStyle } from 'src/common/styles';
 
 export const showPage = (screen, props) =>
 	Navigation.push({
-		screen: `bball.${screen}`,
+		screen: `LastMinuteDeal.${screen}`,
 		animated: true,
 		passProps: props || {}
 	});
 
 export const showModal = (screen, options) =>
 	Navigation.showModal({
-		screen: `bball.${screen}`,
+		screen: `LastMinuteDeal.${screen}`,
 		passProps: options.props || {},
 		title: options.title,
 		navigatorStyle: options.navigatorStyle,
@@ -21,7 +21,7 @@ export const showModal = (screen, options) =>
 
 export const showToast = props =>
 	Navigation.showInAppNotification({
-		screen: 'bball.Toast',
+		screen: 'LastMinuteDeal.Toast',
 		passProps: props || {},
 		autoDismissTimerSec: props.duration || 7
 	});
@@ -39,15 +39,3 @@ export const showLightBox = (screen, props = {}) =>
 export const dismissModal = options => Navigation.dismissModal(options);
 
 export const dismissLightBox = options => Navigation.dismissLightBox(options);
-
-export const dynamicallyRegisterConponentIfNeeded = (
-	newComponent,
-	newComponentKey
-) => {
-	Navigation.registerComponent(
-		newComponentKey,
-		() => newComponent,
-		store,
-		Provider
-	);
-};
