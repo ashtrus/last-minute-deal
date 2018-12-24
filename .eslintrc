@@ -1,4 +1,20 @@
 	{
-		"extends": ["@debitoor/eslint-config-debitoor"],
-		"parser": "babel-eslint"
+		"parser": "babel-eslint",
+		"extends": [
+			"plugin:react/recommended",
+			"@debitoor/eslint-config-debitoor",
+			"plugin:prettier/recommended"
+		],
+		"plugins": [
+			"import",
+			"jest",
+			"jsx-a11y",
+			"no-only-tests",
+			"react-native",
+			"react"
+		],
+		"env": {
+			"browser": true,
+			"jest": true
+		}
 	}
