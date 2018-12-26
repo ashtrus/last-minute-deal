@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Text, TouchableOpacity } from "react-native";
 
 import { Icon, Image, Row, View } from "@shoutem/ui";
@@ -7,11 +8,12 @@ import main from "src/common/styles";
 
 class GeneralSection extends Component {
   render() {
+    const { onPress } = this.props;
     return (
       <View>
         <Divider text="General" />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Row>
             <Image
               styleName="small-avatar"
@@ -48,5 +50,9 @@ class GeneralSection extends Component {
     );
   }
 }
+
+GeneralSection.propTypes = {
+  onPress: PropTypes.func
+};
 
 export default GeneralSection;
