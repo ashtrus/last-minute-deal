@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { ScrollView, View } from "react-native";
 import { connect } from "react-redux";
 import axios from "axios";
+import Config from "react-native-config";
 
 import { Spinner } from "native-base";
 import Categories from "./components/Categories";
@@ -108,9 +109,7 @@ class DashboardPage extends Component {
 
   async getDeals() {
     try {
-      const deals = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
+      const deals = await axios.get(Config.JSONPLACEHOLDER_API + "/posts");
       await this.setState({ deals: deals.data, loading: false });
     } catch (error) {
       console.error("Get deals failed.", error);
