@@ -1,32 +1,40 @@
-import React, { Component } from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import colors from '../colors';
+import React from "react";
+import PropTypes from "prop-types";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import colors from "../colors";
 
-export default class Button extends Component {
-	render() {
-		const { onPress, children, btnStyle, txtStyle } = this.props;
-		const { buttonStyle, buttonTextStyle } = styles;
+const Button = props => (
+  <TouchableOpacity
+    onPress={props.onPress}
+    style={[styles.buttonStyle, props.btnStyle]}
+  >
+    <Text style={[styles.buttonTextStyle, props.txtStyle]}>
+      {props.children}
+    </Text>
+  </TouchableOpacity>
+);
 
-		return (
-			<TouchableOpacity onPress={onPress} style={[buttonStyle, btnStyle]}>
-				<Text style={[buttonTextStyle, txtStyle]}>{children}</Text>
-			</TouchableOpacity>
-		);
-	}
-}
+export default Button;
+
+Button.propTypes = {
+  onPress: PropTypes.func,
+  btnStyle: PropTypes.func,
+  txtStyle: PropTypes.func,
+  children: PropTypes.any
+};
 
 const styles = StyleSheet.create({
-	buttonStyle: {
-		backgroundColor: colors.white,
-		margin: 5,
-		borderWidth: 1,
-		borderColor: colors.blue
-	},
-	buttonTextStyle: {
-		alignSelf: 'center',
-		color: colors.blue,
-		fontSize: 16,
-		fontWeight: '400',
-		padding: 10
-	}
+  buttonStyle: {
+    backgroundColor: colors.white,
+    margin: 5,
+    borderWidth: 1,
+    borderColor: colors.blue
+  },
+  buttonTextStyle: {
+    alignSelf: "center",
+    color: colors.blue,
+    fontSize: 16,
+    fontWeight: "400",
+    padding: 10
+  }
 });
