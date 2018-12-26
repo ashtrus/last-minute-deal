@@ -1,84 +1,66 @@
-import React, { Component } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Text, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 
-import { changeRoot, ROOTS } from 'src/common/actions/rootNavigation.actions';
-import { Button, Divider } from 'src/common/components';
-import {
-	Tile,
-	ImageBackground,
-	Overlay,
-	Icon,
-	Title,
-	Caption,
-	Image,
-	Subtitle,
-	Heading,
-	Row,
-	Switch,
-	View
-} from '@shoutem/ui';
-import commonStyles from 'src/common/styles';
+import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
+import { Button, Divider } from "src/common/components";
+import { Icon, Switch, View } from "@shoutem/ui";
+import main from "src/common/styles";
 
 class SettingsPage extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			switchOn: false
-		};
-	}
+    this.state = {
+      switchOn: false
+    };
+  }
 
-	render() {
-		const { switchOn } = this.state;
+  render() {
+    const { switchOn } = this.state;
 
-		return (
-			<View>
-				<TouchableOpacity style={commonStyles.listItem}>
-					<View styleName="space-between horizontal">
-						<Text>Business details</Text>
-						<Icon styleName="disclosure" name="right-arrow" />
-					</View>
-				</TouchableOpacity>
-				<TouchableOpacity style={commonStyles.listItem}>
-					<View styleName="space-between horizontal">
-						<Text>Notify about new appointments</Text>
-						<Switch
-							onValueChange={() => this.setState({ switchOn: !switchOn })}
-							value={switchOn}
-						/>
-					</View>
-				</TouchableOpacity>
+    return (
+      <View>
+        <TouchableOpacity
+          style={main.listItem}
+          onPress={this.openCompanyProfile}
+        >
+          <View styleName="space-between horizontal">
+            <Text>Company details</Text>
+            <Icon styleName="disclosure" name="right-arrow" />
+          </View>
+        </TouchableOpacity>
 
-				<Divider />
+        <TouchableOpacity style={main.listItem}>
+          <View styleName="space-between horizontal">
+            <Text>Notify about new bookings</Text>
+            <Switch
+              onValueChange={this.onNotificationsChange}
+              value={switchOn}
+            />
+          </View>
+        </TouchableOpacity>
 
-				<Button onPress={this.onLogout}>Logout</Button>
-			</View>
-		);
-	}
+        <Divider />
 
-	onLogout = async () => {
-		const { dispatch } = this.props;
-		await dispatch(changeRoot(ROOTS.AUTH));
+        <Button onPress={this.onLogout}>Logout</Button>
+      </View>
+    );
+  }
 
-		// const {
-		// 	dispatch,
-		// 	email: predefinedEmail,
-		// 	submitAction,
-		// 	navigator
-		// } = this.props;
-		// const { password, email: typedEmail } = this.state;
-		// const email = predefinedEmail || typedEmail;
+  openCompanyProfile() {
+    // TODO: create component for reading company details
+    return;
+  }
 
-		// this.setState({ formDirty: true });
-		// if (!email.length || !password.length) {
-		// 	return;
-		// }
-		// this.containerTouched();
-		// return dispatch(submitAction(email, password, navigator))
-		// 	.then(this.props.goToApp)
-		// 	.catch(e => this.onError(e));
-	};
+  onNotificationsChange = val => {
+    this.setState({ switchOn: val });
+  };
+
+  onLogout = async () => {
+    const { dispatch } = this.props;
+    await dispatch(changeRoot(ROOTS.AUTH));
+  };
 }
 
 export default connect(state => state)(SettingsPage);
