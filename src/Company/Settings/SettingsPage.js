@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
@@ -48,10 +49,14 @@ class SettingsPage extends Component {
     );
   }
 
-  openCompanyProfile() {
-    // TODO: create component for reading company details
-    return;
-  }
+  openCompanyProfile = () => {
+    this.props.navigator.push({
+      screen: "LastMinuteDeal.CompanyDetailsPage",
+      title: "Company Profile",
+      backButtonTitle: "Back"
+      // passProps: data || {}
+    });
+  };
 
   onNotificationsChange = val => {
     this.setState({ switchOn: val });
@@ -62,5 +67,9 @@ class SettingsPage extends Component {
     await dispatch(changeRoot(ROOTS.AUTH));
   };
 }
+
+SettingsPage.propTypes = {
+  navigator: PropTypes.object
+};
 
 export default connect(state => state)(SettingsPage);
