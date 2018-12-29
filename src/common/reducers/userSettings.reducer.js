@@ -1,4 +1,4 @@
-import * as types from "app/common/actions/userSettings.actions";
+import * as types from "src/common/actions/userSettings.actions";
 
 const INITIAL_STATE = {
   dateFormat: "",

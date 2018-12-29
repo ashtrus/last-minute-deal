@@ -8,17 +8,14 @@ import { Button, Divider } from "src/common/components";
 import { Icon, Switch, View } from "@shoutem/ui";
 import main from "src/common/styles";
 
+import { updateNotification } from "src/common/actions/settings.actions";
 class SettingsPage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      switchOn: false
-    };
-  }
-
   render() {
-    const { switchOn } = this.state;
+    const {
+      settings: {
+        notifications: { enabled }
+      }
+    } = this.props;
 
     return (
       <View>
@@ -37,7 +34,7 @@ class SettingsPage extends Component {
             <Text>Notify about new bookings</Text>
             <Switch
               onValueChange={this.onNotificationsChange}
-              value={switchOn}
+              value={enabled}
             />
           </View>
         </TouchableOpacity>
@@ -59,7 +56,7 @@ class SettingsPage extends Component {
   };
 
   onNotificationsChange = val => {
-    this.setState({ switchOn: val });
+    this.props.dispatch(updateNotification(val));
   };
 
   onLogout = async () => {
@@ -69,7 +66,9 @@ class SettingsPage extends Component {
 }
 
 SettingsPage.propTypes = {
-  navigator: PropTypes.object
+  navigator: PropTypes.object,
+  dispatch: PropTypes.func,
+  settings: PropTypes.object
 };
 
 export default connect(state => state)(SettingsPage);

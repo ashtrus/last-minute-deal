@@ -1,4 +1,4 @@
-import * as types from "app/common/actions/settings.actions";
+import * as types from "src/common/actions/settings.actions";
 
 const INITIAL_STATE = {
   companyProfile: {
@@ -10,13 +10,30 @@ const INITIAL_STATE = {
   },
   security: {
     touchIdEnabled: false
+  },
+  notifications: {
+    enabled: false
   }
 };
 
 export default function settings(state = INITIAL_STATE, action) {
   switch (action.type) {
     case types.LOAD_SETTINGS:
-      return { ...action.payload };
+      return { ...state };
+
+    case types.UPDATE_SETTINGS:
+      return {
+        ...state,
+        ...action.payload
+      };
+
+    case types.UPDATE_NOTIFICATION:
+      return {
+        ...state,
+        notifications: {
+          enabled: action.payload
+        }
+      };
 
     default:
       return state;
