@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Alert, ScrollView, View, Text, StyleSheet } from "react-native";
+import { Alert, ScrollView, View, Text } from "react-native";
 import { connect } from "react-redux";
 
 import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
@@ -67,5 +67,3 @@ SinglePage.propTypes = {
 };
 
 export default connect(state => state)(SinglePage);
-
-const styles = StyleSheet.create({});

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { View, Text } from "react-native";
 import { connect } from "react-redux";
 import { dismissModal } from "src/utils/navUtils";
@@ -32,5 +33,9 @@ class AddDealPopup extends Component {
     dismissModal();
   }
 }
+
+AddDealPopup.propTypes = {
+  navigator: PropTypes.func
+};
 
 export default connect(state => state)(AddDealPopup);

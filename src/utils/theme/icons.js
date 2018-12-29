@@ -26,6 +26,7 @@ const icons = {
 const iconsMap = {};
 
 const iconsLoaded = new Promise((resolve, reject) => {
+  // eslint-disable-next-line
   new Promise.all(
     Object.keys(icons).map(iconName => {
       const Provider = icons[iconName][1];
