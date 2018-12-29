@@ -1,43 +1,48 @@
-import { applyMiddleware, createStore } from 'redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { AsyncStorage } from 'react-native';
-import rootReducer from './rootReducer';
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import { persistStore, autoRehydrate } from "redux-persist";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { AsyncStorage } from "react-native";
+import rootReducer from "./rootReducer";
 
-const persistVersion = 11;
-
-const enhancers = [applyMiddleware(thunk), autoRehydrate()].filter(Boolean);
+const persistVersion = 1;
+const enhancers = [applyMiddleware(thunk, logger), autoRehydrate()].filter(
+  Boolean
+);
 
 const store = createStore(rootReducer, composeWithDevTools(...enhancers));
-checkAndPersist();
-export default store;
 
-function checkAndPersist() {
-	AsyncStorage.getItem('persistVersion')
-		.then(deviceVersion => {
-			if (persistVersion > Number(deviceVersion)) {
-				return AsyncStorage.getAllKeys()
-					.then(keys => keys.filter(item => item !== 'reduxPersist:auth'))
-					.then(keys => keys && keys.length && AsyncStorage.multiRemove(keys));
-			}
-		})
-		.then(() =>
-			AsyncStorage.setItem('persistVersion', persistVersion.toString())
-		)
-		.catch(error => console.warn('Store: Checking version error', error))
-		.then(
-			() =>
-				new Promise(resolve =>
-					persistStore(
-						store,
-						{
-							storage: AsyncStorage,
-							debounce: 50
-						},
-						resolve
-					)
-				)
-		)
-		.catch(error => console.warn('Store: persisting error', error));
-}
+const checkAndPersist = async () => {
+  try {
+    const deviceVersion = await AsyncStorage.getItem("persistVersion");
+
+    if (persistVersion > Number(deviceVersion)) {
+      const keys = await AsyncStorage.getAllKeys();
+      const filteredKeys = keys.filter(item => item !== "reduxPersist:auth");
+      const removed =
+        filteredKeys &&
+        filteredKeys.length &&
+        AsyncStorage.multiRemove(filteredKeys);
+      return removed;
+    }
+
+    await AsyncStorage.setItem("persistVersion", persistVersion.toString());
+    await new Promise(resolve =>
+      persistStore(
+        store,
+        {
+          storage: AsyncStorage,
+          debounce: 50
+        },
+        resolve
+      )
+    );
+  } catch (error) {
+    error => console.error("Store: AsyncStorage error", error);
+  }
+};
+
+checkAndPersist();
+
+export default store;
