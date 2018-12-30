@@ -35,6 +35,12 @@ export default function settings(state = INITIAL_STATE, action) {
         }
       };
 
+    case types.UPDATE_COMPANY_PROFILE:
+      return {
+        ...state,
+        companyProfile: { ...action.payload }
+      };
+
     default:
       return state;
   }
