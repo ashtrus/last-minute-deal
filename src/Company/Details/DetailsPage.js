@@ -1,36 +1,30 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
+// import { debounce } from "throttle-debounce";
 
-import { Form, Item, Input, Label } from "native-base";
-
+import { Form } from "native-base";
+import { DebouncedInput } from "src/common/components";
 class CompanyDetailsPage extends Component {
   render() {
     return (
       <View>
         <Form>
-          <Item floatingLabel>
-            <Label>Company name</Label>
-            <Input onChangeText={this.onChange} />
-          </Item>
+          <DebouncedInput label={"Company Name"} onChangeText={this.onChange} />
 
-          <Item floatingLabel last>
-            <Label>Address</Label>
-            <Input onChangeText={this.onChange} />
-          </Item>
+          <DebouncedInput label={"Address"} onChangeText={this.onChange} />
 
-          <Item floatingLabel last>
-            <Label>Phone</Label>
-            <Input keyboardType={"numeric"} onChangeText={this.onChange} />
-          </Item>
+          <DebouncedInput
+            label={"Phone"}
+            keyboardType={"numeric"}
+            onChangeText={this.onChange}
+          />
 
-          <Item floatingLabel last>
-            <Label>Email</Label>
-            <Input
-              keyboardType={"email-address"}
-              onChangeText={this.onChange}
-            />
-          </Item>
+          <DebouncedInput
+            label={"Email"}
+            keyboardType={"email-address"}
+            onChangeText={this.onChange}
+          />
         </Form>
       </View>
     );
