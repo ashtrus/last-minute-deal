@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 
 import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
 import Button from "src/common/components/Button";
+import { showModal } from "src/utils/navUtils";
+import { deleteDeal, loadDeal } from "src/common/actions/deals.actions";
 
 class SinglePage extends PureComponent {
   render() {
@@ -42,11 +44,49 @@ class SinglePage extends PureComponent {
   }
 
   onEdit = () => {
-    this.validateBooking();
+    this.props.dispatch(loadDeal(this.props.id));
+
+    // this.validateBooking();
+    showModal("AddDealPopup", {
+      title: "Update deal info",
+      navigatorButtons: {
+        leftButtons: [
+          {
+            title: "Close",
+            id: "closeAddDeal"
+          }
+        ],
+        rightButtons: [
+          {
+            title: "Save",
+            id: "saveNewDeal"
+          }
+        ]
+      }
+      // props: this.props
+    });
   };
 
   onDelete = () => {
-    console.log("Deleted. Go back to the list");
+    Alert.alert(
+      "Delete deal",
+      "Are you sure?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            this.props.dispatch(deleteDeal(this.props.id));
+            this.props.navigator.pop();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   validateBooking = () => {
@@ -67,8 +107,11 @@ class SinglePage extends PureComponent {
 }
 
 SinglePage.propTypes = {
+  navigator: PropTypes.obj,
+  dispatch: PropTypes.func,
   title: PropTypes.string,
-  body: PropTypes.string
+  body: PropTypes.string,
+  id: PropTypes.number
 };
 
 export default connect(state => state)(SinglePage);
