@@ -6,14 +6,15 @@ import { connect } from "react-redux";
 import { Form, Input, Item, Label } from "native-base";
 
 import { dismissModal } from "src/utils/navUtils";
-import { createDeal } from "src/common/actions/deals.actions";
+import { createDeal, updateDeal } from "src/common/actions/deals.actions";
 class AddDealPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deal: props.deal || {}
+      deal: props.deal || {},
+      isNew: props.isNew || true
     };
-    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
   onNavigatorEvent = event => {
@@ -88,7 +89,10 @@ class AddDealPopup extends Component {
     });
 
   save = () => {
-    this.props.dispatch(createDeal(this.state.deal));
+    const { dispatch } = this.props;
+    this.state.isNew
+      ? dispatch(createDeal(this.state.deal))
+      : dispatch(updateDeal(this.state.deal));
     dismissModal();
   };
 }
@@ -96,7 +100,8 @@ class AddDealPopup extends Component {
 AddDealPopup.propTypes = {
   navigator: PropTypes.func,
   dispatch: PropTypes.func,
-  deal: PropTypes.obj
+  deal: PropTypes.obj,
+  isNew: PropTypes.bool
 };
 
 export default connect(state => state)(AddDealPopup);
