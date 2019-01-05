@@ -4,7 +4,6 @@ export const LOAD_DEALS = "LOAD_DEALS";
 export const CREATE_DEAL = "CREATE_DEAL";
 export const UPDATE_DEAL = "UPDATE_DEAL";
 export const DELETE_DEAL = "DELETE_DEAL";
-export const RESET_LOCAL_STORE = "RESET_LOCAL_STORE";
 
 // export const loadDeals = (options = {}) => async (dispatch, getState) => {
 //   const deals = await axios.get("https://jsonplaceholder.typicode.com/posts");
