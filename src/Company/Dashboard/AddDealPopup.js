@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View } from "react-native";
 import { connect } from "react-redux";
-
+import uuid from "uuid";
 import { Form, Input, Item, Label } from "native-base";
 
 import { dismissModal } from "src/utils/navUtils";
-import { createDeal, updateDeal } from "src/common/actions/deals.actions";
+import { createDeal } from "src/common/actions/deals.actions";
+import { updateCurrentDeal } from "src/common/actions/currentDeal.actions";
+
 class AddDealPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deal: props.deal || {},
-      isNew: props.isNew || true
+      deal: props.deal || {}
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
@@ -89,10 +90,15 @@ class AddDealPopup extends Component {
     });
 
   save = () => {
-    const { dispatch } = this.props;
-    this.state.isNew
-      ? dispatch(createDeal(this.state.deal))
-      : dispatch(updateDeal(this.state.deal));
+    const { dispatch, isNew } = this.props;
+    const deal = {
+      ...this.state.deal,
+      id: uuid()
+    };
+
+    isNew
+      ? dispatch(createDeal(deal))
+      : dispatch(updateCurrentDeal(this.state.deal));
     dismissModal();
   };
 }
