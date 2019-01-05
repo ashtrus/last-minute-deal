@@ -8,11 +8,14 @@ import DealItem from "./DealItem";
 
 class Deals extends Component {
   render() {
-    const { deals } = this.props;
+    const {
+      deals: { items }
+    } = this.props;
+
     return (
       <View>
         <FlatList
-          data={deals}
+          data={items}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
