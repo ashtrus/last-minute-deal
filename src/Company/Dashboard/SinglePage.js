@@ -6,11 +6,14 @@ import { connect } from "react-redux";
 import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
 import Button from "src/common/components/Button";
 import { showModal } from "src/utils/navUtils";
-import { deleteDeal, loadDeal } from "src/common/actions/deals.actions";
+import { deleteDeal } from "src/common/actions/deals.actions";
 
 class SinglePage extends PureComponent {
   render() {
-    const { title, body } = this.props;
+    const {
+      currentDeal: { title }
+    } = this.props;
+
     return (
       <ScrollView>
         <Image
@@ -28,8 +31,12 @@ class SinglePage extends PureComponent {
             <Caption>100/30</Caption>
           </Row>
 
-          <Text>{body}</Text>
-          <Text>{body}</Text>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Perferendis, doloremque. Delectus quis inventore consequatur ex ut
+            praesentium maxime cupiditate aliquid iure culpa repudiandae totam
+            provident quisquam nisi, quaerat eaque dolores.
+          </Text>
 
           <View style={{ paddingVertical: 20 }}>
             <Subtitle>CVR: 12345678</Subtitle>
@@ -44,9 +51,8 @@ class SinglePage extends PureComponent {
   }
 
   onEdit = () => {
-    this.props.dispatch(loadDeal(this.props.id));
-
     // this.validateBooking();
+
     showModal("AddDealPopup", {
       title: "Update deal info",
       navigatorButtons: {
@@ -62,12 +68,21 @@ class SinglePage extends PureComponent {
             id: "saveNewDeal"
           }
         ]
+      },
+      props: {
+        deal: this.props.currentDeal,
+        isNew: false
       }
-      // props: this.props
     });
   };
 
   onDelete = () => {
+    const {
+      dispatch,
+      navigator,
+      currentDeal: { id }
+    } = this.props;
+
     Alert.alert(
       "Delete deal",
       "Are you sure?",
@@ -80,8 +95,8 @@ class SinglePage extends PureComponent {
         {
           text: "OK",
           onPress: () => {
-            this.props.dispatch(deleteDeal(this.props.id));
-            this.props.navigator.pop();
+            dispatch(deleteDeal(id));
+            navigator.pop();
           }
         }
       ],
@@ -109,9 +124,7 @@ class SinglePage extends PureComponent {
 SinglePage.propTypes = {
   navigator: PropTypes.obj,
   dispatch: PropTypes.func,
-  title: PropTypes.string,
-  body: PropTypes.string,
-  id: PropTypes.number
+  currentDeal: PropTypes.obj
 };
 
 export default connect(state => state)(SinglePage);
