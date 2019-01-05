@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ScrollView, View } from "react-native";
 import { connect } from "react-redux";
-import axios from "axios";
 
 import { Spinner } from "native-base";
 import Deals from "./components/Deals";
 import { showModal } from "src/utils/navUtils";
 import main from "src/common/styles";
-import { openDealPopup, deleteDeal } from "src/common/actions/deals.actions";
+import { loadDeals } from "src/common/actions/deals.actions";
+import { openDealPage } from "src/common/actions/currentDeal.actions";
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -22,7 +22,11 @@ class DashboardPage extends Component {
   }
 
   componentDidMount() {
-    // this.getDeals();
+    try {
+      this.props.dispatch(loadDeals());
+    } catch (error) {
+      console.error("Get deals failed.", error);
+    }
   }
 
   onNavigatorEvent = event => {
@@ -43,34 +47,13 @@ class DashboardPage extends Component {
       </View>
     ) : (
       <ScrollView>
-        <Deals
-          deals={items}
-          onSelect={this.openDetailsPage}
-          onEdit={id => this.onEdit(id)}
-          onDelete={id => this.onDelete(id)}
-        />
+        <Deals deals={items} onSelect={this.openDetailsPage} />
       </ScrollView>
     );
   }
 
-  async getDeals() {
-    try {
-      const deals = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      await this.setState({ deals: deals.data, loading: false });
-    } catch (error) {
-      console.error("Get deals failed.", error);
-    }
-  }
-
   openDetailsPage = deal => {
-    this.props.navigator.push({
-      screen: "LastMinuteDeal.CompanySinglePage",
-      title: "Deal details",
-      backButtonTitle: "Back",
-      passProps: deal || {}
-    });
+    this.props.dispatch(openDealPage(deal, this.props.navigator));
   };
 
   openAddDealPopup = () => {
@@ -89,13 +72,10 @@ class DashboardPage extends Component {
             id: "saveNewDeal"
           }
         ]
-      }
+      },
+      props: { isNew: true }
     });
   };
-
-  onEdit = id => this.props.dispatch(openDealPopup({ id }));
-
-  onDelete = id => this.props.dispatch(deleteDeal(id));
 }
 
 DashboardPage.propTypes = {
