@@ -12,14 +12,12 @@ import colors from "src/common/colors";
 class StartPage extends Component {
   render() {
     return (
+      // prettier-ignore
       <View style={[main.pageContainer]}>
         <View style={main.containerCenter}>
           <Image
             styleName="medium-square"
-            source={{
-              uri:
-                "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
-            }}
+            source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" }}
           />
         </View>
 
@@ -32,7 +30,11 @@ class StartPage extends Component {
             <Text>Login with Facebook</Text>
           </Button>
 
-          <Button full style={[styles.btnGoogle]} onPress={this.onGoogleLogin}>
+          <Button
+            full
+            style={[styles.btnGoogle]}
+            onPress={ this.onGoogleLogin }
+          >
             <Text>Login with Google</Text>
           </Button>
 

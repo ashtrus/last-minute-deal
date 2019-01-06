@@ -22,16 +22,23 @@ class CompanyDetailsPage extends Component {
     } = this.state;
 
     return (
+      // prettier-ignore
       <View>
         <Form>
           <Item floatingLabel>
             <Label>Company Name</Label>
-            <Input value={name} onChangeText={this.onChangeName} />
+            <Input
+              value={name}
+              onChangeText={this.onChangeName} 
+            />
           </Item>
 
           <Item floatingLabel>
             <Label>Address</Label>
-            <Input value={address} onChangeText={this.onChangeAddress} />
+            <Input 
+              value={address}
+              onChangeText={this.onChangeAddress}
+            />
           </Item>
 
           <Item floatingLabel>

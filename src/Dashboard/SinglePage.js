@@ -13,9 +13,7 @@ class SinglePage extends PureComponent {
       <ScrollView>
         <Image
           styleName="large-banner"
-          source={{
-            uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-5.png"
-          }}
+          source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-5.png" }}
         />
 
         <View style={{ padding: 10 }}>
@@ -54,7 +52,10 @@ class SinglePage extends PureComponent {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        {
+          text: "OK",
+          onPress: () => console.log("OK Pressed")
+        }
       ],
       { cancelable: false }
     );

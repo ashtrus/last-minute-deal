@@ -17,10 +17,7 @@ class GeneralSection extends Component {
           <Row>
             <Image
               styleName="small-avatar"
-              source={{
-                uri:
-                  "https://shoutem.github.io/img/ui-toolkit/examples/image-9.png"
-              }}
+              source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-9.png" }}
             />
             <Text>User profile</Text>
           </Row>

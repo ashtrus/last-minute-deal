@@ -10,6 +10,7 @@ class Featured extends Component {
   render() {
     const { deals } = this.props;
     return (
+      // prettier-ignore
       <View>
         <FlatList
           data={deals}
@@ -27,9 +28,7 @@ class Featured extends Component {
 
   keyExtractor = item => item.id.toString();
 
-  renderItem = ({ item }) => (
-    <DealItem item={item} onSelect={this.props.onSelect} />
-  );
+  renderItem = ({ item }) => <DealItem item={item} onSelect={this.props.onSelect} />;
 }
 
 Featured.propTypes = {

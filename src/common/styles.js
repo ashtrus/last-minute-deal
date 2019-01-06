@@ -28,6 +28,7 @@ export const isLandscape = () => dimension().width > dimension().height;
 
 export const getDeviceWidth = () => dimension().width;
 
+// prettier-ignore
 export const getDeviceHeight = (withoutSafeAreas = false) =>
   withoutSafeAreas
     ? dimension().height
@@ -37,10 +38,11 @@ export const getDeviceHeight = (withoutSafeAreas = false) =>
 
 export const SAFE_AREA_TOP = isIphoneX() ? 20 : 0;
 export const SAFE_AREA_BOTTOM = isIphoneX() ? 34 : 0;
+// prettier-ignore
 export const SAFE_AREA_TOTAL = isIphoneX()
   ? SAFE_AREA_TOP + SAFE_AREA_BOTTOM
   : 0;
-
+// prettier-ignore
 export const HEADER_HEIGHT = isIOS()
   ? isIphoneX()
     ? 64 + SAFE_AREA_TOP
@@ -52,6 +54,8 @@ export const FONT_WEIGHT = isIOS() ? "500" : "400";
 
 export const BORDER_COLOR = colors.blue;
 export const BORDER_RADIUS = 15;
+
+// prettier-ignore
 export const BORDER_WIDTH = isIphone4or5()
   ? StyleSheet.hairlineWidth * 2
   : StyleSheet.hairlineWidth * 3;

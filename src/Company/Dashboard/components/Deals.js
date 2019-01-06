@@ -12,6 +12,7 @@ class Deals extends Component {
       deals: { items }
     } = this.props;
 
+    // prettier-ignore
     return (
       <View>
         <FlatList
@@ -25,9 +26,7 @@ class Deals extends Component {
 
   keyExtractor = item => item.id.toString();
 
-  renderItem = ({ item }) => (
-    <DealItem item={item} onSelect={this.props.onSelect} />
-  );
+  renderItem = ({ item }) => <DealItem item={item} onSelect={this.props.onSelect} />;
 }
 
 Deals.propTypes = {

@@ -13,8 +13,7 @@ export default class Categories extends Component {
         {
           userId: 1,
           id: 1,
-          title:
-            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+          title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
           body:
             "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
         },
@@ -47,6 +46,7 @@ export default class Categories extends Component {
     const { categories } = this.state;
 
     return (
+      // prettier-ignore
       <View>
         <Title style={main.title}>Categories</Title>
         <FlatList
@@ -70,9 +70,7 @@ export default class Categories extends Component {
       <Image
         styleName="medium"
         style={{ marginLeft: 10 }}
-        source={{
-          uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-12.png"
-        }}
+        source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-12.png" }}
       />
     </TouchableOpacity>
   );

@@ -13,16 +13,14 @@ class ReceiptsPage extends Component {
       receipts: [
         {
           id: 1,
-          imgUrl:
-            "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
+          imgUrl: "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
           title: "Family Safari Vacation To The Home Of The Gods",
           discountedPrice: 120,
           originalPrice: 150
         },
         {
           id: 2,
-          imgUrl:
-            "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
+          imgUrl: "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
           title: "Family Safari Vacation To The Home Of The Gods",
           discountedPrice: 120,
           originalPrice: 150
@@ -31,24 +29,21 @@ class ReceiptsPage extends Component {
       usedReceipts: [
         {
           id: 1,
-          imgUrl:
-            "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
+          imgUrl: "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
           title: "Family Safari Vacation To The Home Of The Gods",
           discountedPrice: 120,
           originalPrice: 150
         },
         {
           id: 2,
-          imgUrl:
-            "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
+          imgUrl: "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
           title: "Family Safari Vacation To The Home Of The Gods",
           discountedPrice: 120,
           originalPrice: 150
         },
         {
           id: 3,
-          imgUrl:
-            "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
+          imgUrl: "https://shoutem.github.io/img/ui-toolkit/examples/image-11.png",
           title: "Family Safari Vacation To The Home Of The Gods",
           discountedPrice: 120,
           originalPrice: 150
@@ -61,6 +56,7 @@ class ReceiptsPage extends Component {
     const { receipts, usedReceipts } = this.state;
 
     return (
+      // prettier-ignore
       <ScrollView style={commonStyles.container}>
         <Divider text="Available" />
         <FlatList

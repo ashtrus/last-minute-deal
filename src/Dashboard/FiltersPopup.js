@@ -35,6 +35,7 @@ class FiltersPopup extends Component {
   render() {
     const { sliderValue } = this.state;
     return (
+      // prettier-ignore
       <ScrollView>
         <Divider styleName="section-header">
           <Caption>Distance</Caption>

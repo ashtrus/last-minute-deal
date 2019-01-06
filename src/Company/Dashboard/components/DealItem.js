@@ -19,10 +19,7 @@ class DealItem extends PureComponent {
         <Row>
           <Image
             styleName="medium rounded-corners"
-            source={{
-              uri:
-                "https://shoutem.github.io/img/ui-toolkit/examples/image-1.png"
-            }}
+            source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-1.png" }}
           />
           <View styleName="vertical stretch space-between">
             <Subtitle>{item.title}</Subtitle>

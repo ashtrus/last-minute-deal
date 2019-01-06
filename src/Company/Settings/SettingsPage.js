@@ -19,10 +19,7 @@ class SettingsPage extends Component {
 
     return (
       <View>
-        <TouchableOpacity
-          style={main.listItem}
-          onPress={this.openCompanyProfile}
-        >
+        <TouchableOpacity style={main.listItem} onPress={this.openCompanyProfile}>
           <View styleName="space-between horizontal">
             <Text>Company details</Text>
             <Icon styleName="disclosure" name="right-arrow" />
@@ -32,10 +29,7 @@ class SettingsPage extends Component {
         <TouchableOpacity style={main.listItem}>
           <View styleName="space-between horizontal">
             <Text>Notify about new bookings</Text>
-            <Switch
-              onValueChange={this.onNotificationsChange}
-              value={enabled}
-            />
+            <Switch onValueChange={this.onNotificationsChange} value={enabled} />
           </View>
         </TouchableOpacity>
 

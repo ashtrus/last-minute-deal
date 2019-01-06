@@ -18,9 +18,7 @@ class SinglePage extends PureComponent {
       <ScrollView>
         <Image
           styleName="large-banner"
-          source={{
-            uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-5.png"
-          }}
+          source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-5.png" }}
         />
 
         <View style={{ padding: 10 }}>
@@ -32,10 +30,9 @@ class SinglePage extends PureComponent {
           </Row>
 
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Perferendis, doloremque. Delectus quis inventore consequatur ex ut
-            praesentium maxime cupiditate aliquid iure culpa repudiandae totam
-            provident quisquam nisi, quaerat eaque dolores.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, doloremque. Delectus quis inventore
+            consequatur ex ut praesentium maxime cupiditate aliquid iure culpa repudiandae totam provident quisquam
+            nisi, quaerat eaque dolores.
           </Text>
 
           <View style={{ paddingVertical: 20 }}>
@@ -56,23 +53,10 @@ class SinglePage extends PureComponent {
     showModal("AddDealPopup", {
       title: "Update deal info",
       navigatorButtons: {
-        leftButtons: [
-          {
-            title: "Close",
-            id: "closeAddDeal"
-          }
-        ],
-        rightButtons: [
-          {
-            title: "Save",
-            id: "saveNewDeal"
-          }
-        ]
+        leftButtons: [{ title: "Close", id: "closeAddDeal" }],
+        rightButtons: [{ title: "Save", id: "saveNewDeal" }]
       },
-      props: {
-        deal: this.props.currentDeal,
-        isNew: false
-      }
+      props: { deal: this.props.currentDeal, isNew: false }
     });
   };
 
@@ -109,11 +93,7 @@ class SinglePage extends PureComponent {
       "Edit appointment",
       "Are you sure",
       [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
+        { text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" },
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ],
       { cancelable: false }
@@ -121,10 +101,6 @@ class SinglePage extends PureComponent {
   };
 }
 
-SinglePage.propTypes = {
-  navigator: PropTypes.obj,
-  dispatch: PropTypes.func,
-  currentDeal: PropTypes.obj
-};
+SinglePage.propTypes = { navigator: PropTypes.obj, dispatch: PropTypes.func, currentDeal: PropTypes.obj };
 
 export default connect(state => state)(SinglePage);

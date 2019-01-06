@@ -12,9 +12,7 @@ import { updateCurrentDeal } from "src/common/actions/currentDeal.actions";
 class AddDealPopup extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      deal: props.deal || {}
-    };
+    this.state = { deal: props.deal || {} };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
@@ -35,32 +33,39 @@ class AddDealPopup extends Component {
     } = this.state;
 
     return (
+      // prettier-ignore
       <View>
         <Form>
           <Item floatingLabel>
             <Label>Title</Label>
-            <Input value={title} onChangeText={this.onChangeTitle} />
+            <Input 
+              value={title}
+              onChangeText={this.onChangeTitle} 
+            />
           </Item>
 
           <Item floatingLabel>
             <Label>Image url</Label>
-            <Input value={imgUrl} onChangeText={this.onChangeImage} />
+            <Input 
+              value={imgUrl}
+              onChangeText={this.onChangeImage} 
+            />
           </Item>
 
           <Item floatingLabel>
             <Label>Discounted price</Label>
-            <Input
+            <Input 
               value={discountedPrice}
-              keyboardType={"numeric"}
-              onChangeText={this.onChangeDiscountedPrice}
+              keyboardType={"numeric"} 
+              onChangeText={this.onChangeDiscountedPrice} 
             />
           </Item>
 
           <Item floatingLabel>
             <Label>Original price</Label>
-            <Input
-              value={originalPrice}
-              keyboardType={"numeric"}
+            <Input 
+              value={originalPrice} 
+              keyboardType={"numeric"} 
               onChangeText={this.onChangeOriginalPrice}
             />
           </Item>
@@ -91,11 +96,9 @@ class AddDealPopup extends Component {
 
   save = () => {
     const { dispatch, isNew } = this.props;
-    const deal = {
-      ...this.state.deal,
-      id: uuid()
-    };
+    const deal = { ...this.state.deal, id: uuid() };
 
+    // prettier-ignore
     isNew
       ? dispatch(createDeal(deal))
       : dispatch(updateCurrentDeal(this.state.deal));

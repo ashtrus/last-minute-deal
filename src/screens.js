@@ -15,82 +15,17 @@ import CompanyDetailsPage from "./Company/Details/DetailsPage";
 import AddDealPopup from "./Company/Dashboard/AddDealPopup";
 
 export const registerScreens = (store, Provider) => {
-  Navigation.registerComponent(
-    "LastMinuteDeal.StartPage",
-    () => StartPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.DashboardPage",
-    () => DashboardPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.FiltersPopup",
-    () => FiltersPopup,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.SinglePage",
-    () => SinglePage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.MapPage",
-    () => MapPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.UserProfilePage",
-    () => UserProfilePage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.SettingsPage",
-    () => SettingsPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.ReceiptsPage",
-    () => ReceiptsPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.CompanyDashboardPage",
-    () => CompanyDashboardPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.CompanySinglePage",
-    () => CompanySinglePage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.CompanySettingsPage",
-    () => CompanySettingsPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.CompanyDetailsPage",
-    () => CompanyDetailsPage,
-    store,
-    Provider
-  );
-  Navigation.registerComponent(
-    "LastMinuteDeal.AddDealPopup",
-    () => AddDealPopup,
-    store,
-    Provider
-  );
+  Navigation.registerComponent("LastMinuteDeal.StartPage", () => StartPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.DashboardPage", () => DashboardPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.FiltersPopup", () => FiltersPopup, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.SinglePage", () => SinglePage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.MapPage", () => MapPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.UserProfilePage", () => UserProfilePage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.SettingsPage", () => SettingsPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.ReceiptsPage", () => ReceiptsPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.CompanyDashboardPage", () => CompanyDashboardPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.CompanySinglePage", () => CompanySinglePage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.CompanySettingsPage", () => CompanySettingsPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.CompanyDetailsPage", () => CompanyDetailsPage, store, Provider);
+  Navigation.registerComponent("LastMinuteDeal.AddDealPopup", () => AddDealPopup, store, Provider);
 };

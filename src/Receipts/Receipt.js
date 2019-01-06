@@ -17,9 +17,7 @@ class Receipt extends Component {
           <View styleName="vertical stretch space-between">
             <Subtitle>{title}</Subtitle>
             <View styleName="horizontal">
-              <Subtitle styleName="md-gutter-right">
-                ${discountedPrice}
-              </Subtitle>
+              <Subtitle styleName="md-gutter-right">${discountedPrice}</Subtitle>
               <Caption styleName="line-through">${originalPrice}</Caption>
             </View>
           </View>
