@@ -16,5 +16,10 @@
 		"env": {
 			"browser": true,
 			"jest": true
+		},
+		"rules": {
+			"prettier/prettier": [
+				"error", {"printWidth": 120}
+			]
 		}
 	}
