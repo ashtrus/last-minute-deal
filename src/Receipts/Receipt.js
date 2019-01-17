@@ -7,11 +7,16 @@ import { Icon, Caption, Image, Subtitle, Row, Button, View } from "@shoutem/ui";
 class Receipt extends Component {
   render() {
     const {
-      item: { imgUrl, title, discountedPrice, originalPrice }
+      item: {
+        imgUrl = "https://cdn.logojoy.com/wp-content/uploads/2018/05/30160104/1145.png",
+        title,
+        discountedPrice = 100,
+        originalPrice = 500
+      }
     } = this.props;
 
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => console.log("### item pressed")}>
         <Row>
           <Image styleName="small rounded-corners" source={{ uri: imgUrl }} />
           <View styleName="vertical stretch space-between">
