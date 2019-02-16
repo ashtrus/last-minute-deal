@@ -17,11 +17,11 @@ class DealItem extends PureComponent {
       item: {
         imgUrl,
         title = "Service name",
-        companyName = "Company name",
+        companyName = "Branch name / Employee",
         discountedPrice = 100,
         originalPrice = 500,
         time = "14:00 - 15:00",
-        address = "Company address"
+        address = "Branch address"
       }
     } = this.props;
 
