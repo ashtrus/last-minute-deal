@@ -12,22 +12,32 @@ class DealItem extends PureComponent {
     onSelect(item);
   };
 
-  // TODO: style it
   render() {
-    const { item } = this.props;
+    const {
+      item: {
+        imgUrl,
+        title = "Service name",
+        companyName = "Company name",
+        discountedPrice = 100,
+        originalPrice = 500,
+        time = "14:00 - 15:00",
+        address = "Company address"
+      }
+    } = this.props;
 
     return (
       <TouchableOpacity onPress={this.onPress}>
         <Row>
-          <Image
-            styleName="medium rounded-corners"
-            source={Boolean(item.imgUri) ? { uri: item.imgUri } : DEFAULT_IMG}
-          />
-          <View styleName="vertical stretch space-between">
-            <Subtitle>{item.title}</Subtitle>
+          <Image styleName="medium rounded-corners" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
+          <View styleName="vertical stretch">
+            <Subtitle>{title}</Subtitle>
+            <Caption>{companyName}</Caption>
+            <Caption>{address}</Caption>
             <View styleName="horizontal space-between">
-              <Caption>post author</Caption>
-              <Caption>12:16</Caption>
+              <Caption>
+                ${discountedPrice} / ${originalPrice}
+              </Caption>
+              <Caption>{time}</Caption>
             </View>
           </View>
         </Row>
