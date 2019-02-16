@@ -4,6 +4,8 @@ import { FlatList, TouchableOpacity } from "react-native";
 import { Title, Image, View } from "@shoutem/ui";
 import main from "src/common/styles";
 
+const DEFAULT_IMG = require("../../../assets/img/spa-logo.png");
+
 export default class Categories extends Component {
   constructor(props) {
     super(props);
@@ -67,11 +69,7 @@ export default class Categories extends Component {
 
   renderItem = () => (
     <TouchableOpacity onPress={this.onSelect}>
-      <Image
-        styleName="medium"
-        style={{ marginLeft: 10 }}
-        source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-12.png" }}
-      />
+      <Image styleName="medium" style={{ marginLeft: 10 }} source={DEFAULT_IMG} />
     </TouchableOpacity>
   );
 }

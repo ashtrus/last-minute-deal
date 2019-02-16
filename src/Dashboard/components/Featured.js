@@ -13,7 +13,7 @@ class Featured extends Component {
       // prettier-ignore
       <View>
         <FlatList
-          data={deals}
+          data={deals.items.slice(0,5)}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
           ListHeaderComponent={
@@ -32,7 +32,7 @@ class Featured extends Component {
 }
 
 Featured.propTypes = {
-  deals: PropTypes.array,
+  deals: PropTypes.object,
   onOpen: PropTypes.func,
   onSelect: PropTypes.func
 };

@@ -16,7 +16,7 @@ class Deals extends Component {
     return (
       <View>
         <FlatList
-          data={items}
+          data={items.slice(0, 10)}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
@@ -30,7 +30,7 @@ class Deals extends Component {
 }
 
 Deals.propTypes = {
-  deals: PropTypes.array,
+  deals: PropTypes.object,
   onOpen: PropTypes.func,
   onSelect: PropTypes.func
 };

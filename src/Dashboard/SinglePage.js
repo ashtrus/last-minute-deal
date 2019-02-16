@@ -6,15 +6,15 @@ import { connect } from "react-redux";
 import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
 import Button from "src/common/components/Button";
 
+const DEFAULT_IMG = require("../../assets/img/massage.jpg");
+
 class SinglePage extends PureComponent {
   render() {
-    const { title, body } = this.props;
+    const { title, body, imgUrl } = this.props;
+
     return (
       <ScrollView>
-        <Image
-          styleName="large-banner"
-          source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-5.png" }}
-        />
+        <Image styleName="large-banner" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
 
         <View style={{ padding: 10 }}>
           <Title>{title}</Title>
@@ -64,7 +64,8 @@ class SinglePage extends PureComponent {
 
 SinglePage.propTypes = {
   title: PropTypes.string,
-  body: PropTypes.string
+  body: PropTypes.string,
+  imgUrl: PropTypes.string
 };
 
 export default connect(state => state)(SinglePage);

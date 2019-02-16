@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import { Caption, Subtitle, Row, Image, View } from "@shoutem/ui";
 
+const DEFAULT_IMG = require("../../../assets/img/massage.jpg");
+
 class DealItem extends PureComponent {
   onPress = () => {
     const { onSelect, item } = this.props;
@@ -12,17 +14,16 @@ class DealItem extends PureComponent {
 
   // TODO: style it
   render() {
-    const { item } = this.props;
+    const {
+      item: { title, imgUrl }
+    } = this.props;
 
     return (
       <TouchableOpacity onPress={this.onPress}>
         <Row>
-          <Image
-            styleName="medium rounded-corners"
-            source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-1.png" }}
-          />
+          <Image styleName="medium rounded-corners" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
           <View styleName="vertical stretch space-between">
-            <Subtitle>{item.title}</Subtitle>
+            <Subtitle>{title}</Subtitle>
             <View styleName="horizontal space-between">
               <Caption>post author</Caption>
               <Caption>12:16</Caption>

@@ -6,6 +6,8 @@ import { Icon, Image, Row, View } from "@shoutem/ui";
 import { Divider } from "src/common/components";
 import main from "src/common/styles";
 
+const DEFAULT_IMG = require("../../assets/img/user.png");
+
 class GeneralSection extends Component {
   render() {
     const { onPress } = this.props;
@@ -15,10 +17,7 @@ class GeneralSection extends Component {
 
         <TouchableOpacity onPress={onPress}>
           <Row>
-            <Image
-              styleName="small-avatar"
-              source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-9.png" }}
-            />
+            <Image styleName="small-avatar" source={DEFAULT_IMG} />
             <Text>User profile</Text>
           </Row>
         </TouchableOpacity>

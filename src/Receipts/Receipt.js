@@ -4,21 +4,18 @@ import { TouchableOpacity } from "react-native";
 
 import { Icon, Caption, Image, Subtitle, Row, Button, View } from "@shoutem/ui";
 
+const DEFAULT_IMG = require("../../assets/img/spa-logo.png");
+
 class Receipt extends Component {
   render() {
     const {
-      item: {
-        imgUrl = "https://cdn.logojoy.com/wp-content/uploads/2018/05/30160104/1145.png",
-        title,
-        discountedPrice = 100,
-        originalPrice = 500
-      }
+      item: { imgUrl, title, discountedPrice = 100, originalPrice = 500 }
     } = this.props;
 
     return (
       <TouchableOpacity onPress={() => console.log("### item pressed")}>
         <Row>
-          <Image styleName="small rounded-corners" source={{ uri: imgUrl }} />
+          <Image styleName="small rounded-corners" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
           <View styleName="vertical stretch space-between">
             <Subtitle>{title}</Subtitle>
             <View styleName="horizontal">

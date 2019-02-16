@@ -8,25 +8,26 @@ import Button from "src/common/components/Button";
 import { showModal } from "src/utils/navUtils";
 import { deleteDeal } from "src/common/actions/deals.actions";
 
+const DEFAULT_IMG = require("../../../assets/img/massage.jpg");
+
 class SinglePage extends PureComponent {
   render() {
     const {
-      currentDeal: { title }
+      currentDeal: { title, discountedPrice, originalPrice, imgUrl }
     } = this.props;
 
     return (
       <ScrollView>
-        <Image
-          styleName="large-banner"
-          source={{ uri: "https://shoutem.github.io/img/ui-toolkit/examples/image-5.png" }}
-        />
+        <Image styleName="large-banner" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
 
         <View style={{ padding: 10 }}>
           <Title>{title}</Title>
 
           <Row>
             <Caption>14d 18:30</Caption>
-            <Caption>100/30</Caption>
+            <Caption>
+              ${discountedPrice} / ${originalPrice}
+            </Caption>
           </Row>
 
           <Text>

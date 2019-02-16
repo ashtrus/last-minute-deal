@@ -17,7 +17,7 @@ class StartPage extends Component {
         <View style={main.containerCenter}>
           <Image
             styleName="medium-square"
-            source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" }}
+            source={ require('../../../assets/img/app-logo.png') }
           />
         </View>
 
