@@ -15,8 +15,7 @@ class DashboardPage extends Component {
     super(props);
 
     this.state = {
-      // TODO: set to true when real data used
-      loading: false
+      loading: true
     };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
@@ -24,6 +23,7 @@ class DashboardPage extends Component {
   componentDidMount() {
     try {
       this.props.dispatch(loadDeals());
+      this.setState({ loading: false });
     } catch (error) {
       console.error("Get deals failed.", error);
     }
@@ -41,7 +41,7 @@ class DashboardPage extends Component {
       deals: { items }
     } = this.props;
 
-    return Boolean(loading) ? (
+    return loading ? (
       <View style={main.containerCenter}>
         <Spinner color="blue" />
       </View>
