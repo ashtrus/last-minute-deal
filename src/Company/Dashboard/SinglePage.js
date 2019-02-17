@@ -1,9 +1,10 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Alert, ScrollView, View, Text } from "react-native";
+import { Alert, ScrollView, Text } from "react-native";
 import { connect } from "react-redux";
 
-import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
+import { Title, Caption, Image, Subtitle, Row, View } from "@shoutem/ui";
+import { Grid, Col } from "native-base";
 import Button from "src/common/components/Button";
 import { showModal } from "src/utils/navUtils";
 import { deleteDeal } from "src/common/actions/deals.actions";
@@ -13,7 +14,15 @@ const DEFAULT_IMG = require("../../../assets/img/massage.jpg");
 class SinglePage extends PureComponent {
   render() {
     const {
-      currentDeal: { title, discountedPrice, originalPrice, imgUrl }
+      currentDeal: {
+        title,
+        description = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, doloremque. Delectus quis inventore consequatur ex ut praesentium maxime cupiditate aliquid iure culpa repudiandae totam provident quisquam nisi, quaerat eaque dolores.`,
+        time = "14:00 - 15:00",
+        address = "Branch address",
+        discountedPrice = 100,
+        originalPrice = 500,
+        imgUrl
+      }
     } = this.props;
 
     return (
@@ -24,25 +33,30 @@ class SinglePage extends PureComponent {
           <Title>{title}</Title>
 
           <Row>
-            <Caption>14d 18:30</Caption>
-            <Caption>
-              ${discountedPrice} / ${originalPrice}
-            </Caption>
+            <View styleName="horizontal space-between">
+              <Caption>{time}</Caption>
+              <Caption>
+                ${discountedPrice} / ${originalPrice}
+              </Caption>
+            </View>
           </Row>
 
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, doloremque. Delectus quis inventore
-            consequatur ex ut praesentium maxime cupiditate aliquid iure culpa repudiandae totam provident quisquam
-            nisi, quaerat eaque dolores.
-          </Text>
+          <Text>{description}</Text>
 
           <View style={{ paddingVertical: 20 }}>
-            <Subtitle>CVR: 12345678</Subtitle>
-            <Subtitle>Street 212 3th København 2300</Subtitle>
+            <Subtitle>{address}</Subtitle>
           </View>
 
-          <Button onPress={this.onEdit}>Edit</Button>
-          <Button onPress={this.onDelete}>Delete</Button>
+          <Grid>
+            <Col>
+              <Button btnStyle={{ borderColor: "red" }} txtStyle={{ color: "red" }} onPress={this.onDelete}>
+                Delete
+              </Button>
+            </Col>
+            <Col>
+              <Button onPress={this.onEdit}>Edit</Button>
+            </Col>
+          </Grid>
         </View>
       </ScrollView>
     );
@@ -102,6 +116,6 @@ class SinglePage extends PureComponent {
   };
 }
 
-SinglePage.propTypes = { navigator: PropTypes.obj, dispatch: PropTypes.func, currentDeal: PropTypes.obj };
+SinglePage.propTypes = { navigator: PropTypes.func, dispatch: PropTypes.func, currentDeal: PropTypes.func };
 
 export default connect(state => state)(SinglePage);
