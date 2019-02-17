@@ -29,7 +29,7 @@ class AddDealPopup extends Component {
 
   render() {
     const {
-      deal: { title, imgUrl, discountedPrice, originalPrice }
+      deal: { title, description, imgUrl, time, address, discountedPrice, originalPrice }
     } = this.state;
 
     return (
@@ -40,7 +40,15 @@ class AddDealPopup extends Component {
             <Label>Title</Label>
             <Input 
               value={title}
-              onChangeText={this.onChangeTitle} 
+              onChangeText={title => this.onChange('title', title)} 
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Description</Label>
+            <Input 
+              value={description}
+              onChangeText={description => this.onChange('description', description)} 
             />
           </Item>
 
@@ -48,7 +56,23 @@ class AddDealPopup extends Component {
             <Label>Image url</Label>
             <Input 
               value={imgUrl}
-              onChangeText={this.onChangeImage} 
+              onChangeText={imgUrl => this.onChange('imgUrl', imgUrl)} 
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Branch Address</Label>
+            <Input 
+              value={address}
+              onChangeText={address => this.onChange('address', address)} 
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Time slot</Label>
+            <Input 
+              value={time}
+              onChangeText={time => this.onChange('time', time)} 
             />
           </Item>
 
@@ -57,7 +81,7 @@ class AddDealPopup extends Component {
             <Input 
               value={discountedPrice}
               keyboardType={"numeric"} 
-              onChangeText={this.onChangeDiscountedPrice} 
+              onChangeText={discountedPrice => this.onChange('discountedPrice', discountedPrice)} 
             />
           </Item>
 
@@ -66,7 +90,7 @@ class AddDealPopup extends Component {
             <Input 
               value={originalPrice} 
               keyboardType={"numeric"} 
-              onChangeText={this.onChangeOriginalPrice}
+              onChangeText={originalPrice => this.onChange('originalPrice', originalPrice)}
             />
           </Item>
         </Form>
@@ -74,24 +98,9 @@ class AddDealPopup extends Component {
     );
   }
 
-  onChangeTitle = title =>
+  onChange = (key, value) =>
     this.setState({
-      deal: { ...this.state.deal, title }
-    });
-
-  onChangeAddress = imgUrl =>
-    this.setState({
-      deal: { ...this.state.deal, imgUrl }
-    });
-
-  onChangeDiscountedPrice = discountedPrice =>
-    this.setState({
-      deal: { ...this.state.deal, discountedPrice }
-    });
-
-  onChangeOriginalPrice = originalPrice =>
-    this.setState({
-      deal: { ...this.state.deal, originalPrice }
+      deal: { ...this.state.deal, [key]: value }
     });
 
   save = () => {
