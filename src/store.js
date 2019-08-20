@@ -7,7 +7,8 @@ import { AsyncStorage } from "react-native";
 import rootReducer from "./rootReducer";
 
 const persistVersion = 1;
-const enhancers = [applyMiddleware(thunk, logger), autoRehydrate()].filter(Boolean);
+
+const enhancers = [applyMiddleware(thunk), autoRehydrate()].filter(Boolean);
 
 const store = createStore(rootReducer, composeWithDevTools(...enhancers));
 
@@ -18,23 +19,16 @@ const checkAndPersist = async () => {
     if (persistVersion > Number(deviceVersion)) {
       const keys = await AsyncStorage.getAllKeys();
       const filteredKeys = keys.filter(item => item !== "reduxPersist:auth");
-      const removed = filteredKeys && filteredKeys.length && AsyncStorage.multiRemove(filteredKeys);
-      return removed;
+      filteredKeys && filteredKeys.length && AsyncStorage.multiRemove(filteredKeys);
     }
 
     await AsyncStorage.setItem("persistVersion", persistVersion.toString());
-    await new Promise(resolve =>
-      persistStore(
-        store,
-        {
-          storage: AsyncStorage,
-          debounce: 50
-        },
-        resolve
-      )
-    );
+    await persistStore(store, {
+      storage: AsyncStorage,
+      debounce: 50
+    });
   } catch (error) {
-    error => console.error("Store: AsyncStorage error", error);
+    console.error("Store: AsyncStorage error", error);
   }
 };
 
