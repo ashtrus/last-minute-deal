@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Alert, ScrollView, View, Text } from "react-native";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
 import Button from "src/common/components/Button";
@@ -9,6 +10,11 @@ import Button from "src/common/components/Button";
 const DEFAULT_IMG = require("../../assets/img/massage.jpg");
 
 class SinglePage extends PureComponent {
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this);
+  }
+
   render() {
     const { title, body, imgUrl } = this.props;
 
@@ -60,6 +66,12 @@ class SinglePage extends PureComponent {
       { cancelable: false }
     );
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === "backButton") {
+      Navigation.pop(this.props.componentId);
+    }
+  }
 }
 
 SinglePage.propTypes = {

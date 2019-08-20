@@ -1,156 +1,53 @@
 import { Component } from "react";
 import { YellowBox } from "react-native";
 import { Navigation } from "react-native-navigation";
-import { Provider } from "react-redux";
 import store from "./store";
-import { registerScreens } from "./screens";
-
-import { noNavigatorStyle } from "./common/styles";
-import colors from "./common/colors";
-import { iconsLoaded, iconsMap } from "./utils/theme";
+import registerScreens from "./screens";
+import { iconsLoaded } from "./utils/theme";
 import { ROOTS } from "./common/actions/rootNavigation.actions";
+import { startPage, userPage, companyPage, setDefaultOptions } from "./navigation";
 
-registerScreens(store, Provider);
+registerScreens();
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    store.subscribe(this.onStoreUpdate);
+  constructor() {
+    super();
+    Navigation.events().registerAppLaunchedListener(() => {
+      setDefaultOptions();
+      store.subscribe(this.onStoreUpdate);
+      this.startApp();
+    });
   }
 
   onStoreUpdate = async () => {
-    const state = store.getState();
     const {
       rootNavigation: { root },
       navigation: { storageLoaded }
-    } = state;
+    } = store.getState();
+    console.log("🔥 props", store.getState());
 
     if (root !== this.currentRoot && storageLoaded) {
       this.currentRoot = root;
-      iconsLoaded.then(() => this.startApp(root));
+      await iconsLoaded();
+      await this.startApp(root);
     }
   };
 
-  startApp(root) {
+  startApp = (root = "AUTH") => {
     switch (root) {
       case ROOTS.AUTH:
-        Navigation.startSingleScreenApp({
-          screen: {
-            label: "Home",
-            screen: "LastMinuteDeal.StartPage",
-            title: "Last Minute Deal",
-            navigatorStyle: noNavigatorStyle
-          },
-          animationType: "fade"
-        });
+        startPage();
         break;
       case ROOTS.MAIN_APP:
-        Navigation.startTabBasedApp({
-          tabs: [
-            {
-              label: "Home",
-              title: "Last Minute Deal",
-              screen: "LastMinuteDeal.DashboardPage",
-              icon: iconsMap.home,
-              navigatorButtons: {
-                leftButtons: [
-                  {
-                    icon: iconsMap.filter,
-                    id: "iconFilter"
-                  }
-                ]
-              }
-            },
-            {
-              label: "Map",
-              title: "Map",
-              screen: "LastMinuteDeal.MapPage",
-              icon: iconsMap.map
-            },
-            {
-              label: "Receipts",
-              title: "Receipts",
-              screen: "LastMinuteDeal.ReceiptsPage",
-              icon: iconsMap.receipt
-            },
-            {
-              label: "Settings",
-              title: "Settings",
-              screen: "LastMinuteDeal.SettingsPage",
-              icon: iconsMap.settings
-            }
-          ],
-          tabsStyle: {
-            tabBarButtonColor: colors.gray,
-            tabBarSelectedButtonColor: colors.blue,
-            tabBarBackgroundColor: colors.white,
-            initialTabIndex: 0
-          },
-          appStyle: {
-            orientation: "portrait",
-            tabBarSelectedButtonColor: colors.blue
-          },
-          passProps: {},
-          animationType: "fade"
-        });
+        userPage();
         break;
       case ROOTS.MAIN_APP_COMPANY:
-        Navigation.startTabBasedApp({
-          tabs: [
-            {
-              label: "Home",
-              // TODO: set to user company name
-              title: "Company name",
-              screen: "LastMinuteDeal.CompanyDashboardPage",
-              icon: iconsMap.home,
-              navigatorButtons: {
-                rightButtons: [
-                  {
-                    icon: iconsMap.plus,
-                    id: "iconAdd"
-                  }
-                ]
-              }
-            },
-            {
-              label: "Receipts",
-              title: "Receipts",
-              screen: "LastMinuteDeal.ReceiptsPage",
-              icon: iconsMap.receipt
-            },
-            {
-              label: "Settings",
-              title: "Settings",
-              screen: "LastMinuteDeal.CompanySettingsPage",
-              icon: iconsMap.settings
-            }
-          ],
-          tabsStyle: {
-            tabBarButtonColor: colors.gray,
-            tabBarSelectedButtonColor: colors.blue,
-            tabBarBackgroundColor: colors.white,
-            initialTabIndex: 0
-          },
-          appStyle: {
-            orientation: "portrait",
-            tabBarSelectedButtonColor: colors.blue
-          },
-          passProps: {},
-          animationType: "fade"
-        });
+        companyPage();
         break;
       default:
-        Navigation.startSingleScreenApp({
-          screen: {
-            screen: "LastMinuteDeal.StartPage",
-            title: "Welcome",
-            navigatorStyle: noNavigatorStyle
-          },
-          passProps: { testMode: false },
-          animationType: "none"
-        });
+        startPage();
     }
-  }
+  };
 }
 
-YellowBox.ignoreWarnings(["Require cycle:"]);
+YellowBox.ignoreWarnings(["Require cycle:", "Remote debugger", "Failed prop type"]);

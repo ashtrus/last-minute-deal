@@ -1,14 +1,5 @@
 import { Navigation } from "react-native-navigation";
 
-export const showModal = (screen, options) =>
-  Navigation.showModal({
-    screen: `LastMinuteDeal.${screen}`,
-    passProps: options.props || {},
-    title: options.title,
-    navigatorStyle: options.navigatorStyle,
-    navigatorButtons: options.navigatorButtons
-  });
-
 export const showLightBox = (screen, props = {}) =>
   Navigation.showLightBox({
     screen,
@@ -19,6 +10,8 @@ export const showLightBox = (screen, props = {}) =>
     }
   });
 
-export const dismissModal = options => Navigation.dismissModal(options);
+export const dismissModal = ({ componentId }) => Navigation.dismissModal(componentId);
+
+export const dismissAllModals = () => Navigation.dismissAllModals();
 
 export const dismissLightBox = options => Navigation.dismissLightBox(options);

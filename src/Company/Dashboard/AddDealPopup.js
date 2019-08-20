@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { connect } from "react-redux";
 import uuid from "uuid";
 import { Form, Input, Item, Label } from "native-base";
+import { Navigation } from "react-native-navigation";
 
 import { dismissModal } from "src/utils/navUtils";
 import { createDeal } from "src/common/actions/deals.actions";
@@ -13,19 +14,8 @@ class AddDealPopup extends Component {
   constructor(props) {
     super(props);
     this.state = { deal: props.deal || {} };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    Navigation.events().bindComponent(this);
   }
-
-  onNavigatorEvent = event => {
-    switch (event.id) {
-      case "saveNewDeal":
-        this.save();
-      case "closeAddDeal":
-        dismissModal();
-      default:
-        return;
-    }
-  };
 
   render() {
     const {
@@ -103,20 +93,27 @@ class AddDealPopup extends Component {
       deal: { ...this.state.deal, [key]: value }
     });
 
-  save = () => {
+  save = async () => {
     const { dispatch, isNew } = this.props;
     const deal = { ...this.state.deal, id: uuid() };
 
     // prettier-ignore
     isNew
-      ? dispatch(createDeal(deal))
-      : dispatch(updateCurrentDeal(this.state.deal));
-    dismissModal();
+      ? await dispatch(createDeal(deal))
+      : await dispatch(updateCurrentDeal(this.state.deal));
+    dismissModal(this.props);
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === "saveNewDeal") {
+      this.save();
+    } else if (buttonId === "closeAddDeal") {
+      dismissModal(this.props);
+    }
+  }
 }
 
 AddDealPopup.propTypes = {
-  navigator: PropTypes.func,
   dispatch: PropTypes.func,
   deal: PropTypes.obj,
   isNew: PropTypes.bool

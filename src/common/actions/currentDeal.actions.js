@@ -30,13 +30,3 @@ export const updateCurrentDeal = payload => (dispatch, getState) => {
   });
   dispatch(updateDeal(payload));
 };
-
-export const openDealPage = (props, navigator) => dispatch => {
-  navigator.push({
-    screen: "LastMinuteDeal.CompanySinglePage",
-    title: "Deal details",
-    backButtonTitle: "Back",
-    passProps: props
-  });
-  dispatch(loadCurrentDeal(props.id));
-};

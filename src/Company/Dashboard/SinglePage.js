@@ -2,16 +2,21 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Alert, ScrollView, Text } from "react-native";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { Title, Caption, Image, Subtitle, Row, View } from "@shoutem/ui";
 import { Grid, Col } from "native-base";
 import Button from "src/common/components/Button";
-import { showModal } from "src/utils/navUtils";
 import { deleteDeal } from "src/common/actions/deals.actions";
 
 const DEFAULT_IMG = require("../../../assets/img/massage.jpg");
 
 class SinglePage extends PureComponent {
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this);
+  }
+
   render() {
     const {
       currentDeal: {
@@ -64,21 +69,42 @@ class SinglePage extends PureComponent {
 
   onEdit = () => {
     // this.validateBooking();
-
-    showModal("AddDealPopup", {
-      title: "Update deal info",
-      navigatorButtons: {
-        leftButtons: [{ title: "Close", id: "closeAddDeal" }],
-        rightButtons: [{ title: "Save", id: "saveNewDeal" }]
-      },
-      props: { deal: this.props.currentDeal, isNew: false }
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: "LastMinuteDeal.AddDealPopup",
+              passProps: { deal: this.props.currentDeal, isNew: false },
+              options: {
+                topBar: {
+                  title: {
+                    text: "Update deal info"
+                  },
+                  leftButtons: [
+                    {
+                      text: "Close",
+                      id: "closeAddDeal"
+                    }
+                  ],
+                  rightButtons: [
+                    {
+                      text: "Save",
+                      id: "saveNewDeal"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
     });
   };
 
   onDelete = () => {
     const {
       dispatch,
-      navigator,
       currentDeal: { id }
     } = this.props;
 
@@ -95,7 +121,7 @@ class SinglePage extends PureComponent {
           text: "OK",
           onPress: () => {
             dispatch(deleteDeal(id));
-            navigator.pop();
+            Navigation.pop(this.props.componentId);
           }
         }
       ],
@@ -114,8 +140,14 @@ class SinglePage extends PureComponent {
       { cancelable: false }
     );
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === "backButton") {
+      Navigation.pop(this.props.componentId);
+    }
+  }
 }
 
-SinglePage.propTypes = { navigator: PropTypes.func, dispatch: PropTypes.func, currentDeal: PropTypes.func };
+SinglePage.propTypes = { dispatch: PropTypes.func, currentDeal: PropTypes.func };
 
 export default connect(state => state)(SinglePage);

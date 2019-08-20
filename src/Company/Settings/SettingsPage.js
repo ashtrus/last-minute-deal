@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
 import { Button, Divider } from "src/common/components";
@@ -10,6 +11,11 @@ import main from "src/common/styles";
 
 import { updateNotification } from "src/common/actions/settings.actions";
 class SettingsPage extends Component {
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this);
+  }
+
   render() {
     const {
       settings: {
@@ -41,11 +47,24 @@ class SettingsPage extends Component {
   }
 
   openCompanyProfile = () => {
-    this.props.navigator.push({
-      screen: "LastMinuteDeal.CompanyDetailsPage",
-      title: "Company Profile",
-      backButtonTitle: "Back"
-      // passProps: data || {}
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: "LastMinuteDeal.CompanyDetailsPage",
+        passProps: {},
+        options: {
+          topBar: {
+            title: {
+              text: "Company profile"
+            },
+            leftButtons: [
+              {
+                text: "Back",
+                id: "backButton"
+              }
+            ]
+          }
+        }
+      }
     });
   };
 
@@ -60,7 +79,6 @@ class SettingsPage extends Component {
 }
 
 SettingsPage.propTypes = {
-  navigator: PropTypes.object,
   dispatch: PropTypes.func,
   settings: PropTypes.object
 };

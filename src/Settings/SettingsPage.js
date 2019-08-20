@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
 import { Button, Divider } from "src/common/components";
@@ -21,11 +22,24 @@ class SettingsPage extends Component {
   }
 
   openUserProfile = () => {
-    this.props.navigator.push({
-      screen: "LastMinuteDeal.UserProfilePage",
-      title: "User Profile",
-      backButtonTitle: "Back"
-      // passProps: data || {}
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: "LastMinuteDeal.UserProfilePage",
+        passProps: {},
+        options: {
+          topBar: {
+            title: {
+              text: "User Profile"
+            },
+            leftButtons: [
+              {
+                text: "Back",
+                id: "backButton"
+              }
+            ]
+          }
+        }
+      }
     });
   };
 
@@ -35,8 +49,6 @@ class SettingsPage extends Component {
   };
 }
 
-SettingsPage.propTypes = {
-  navigator: PropTypes.object
-};
+SettingsPage.propTypes = {};
 
 export default connect(state => state)(SettingsPage);

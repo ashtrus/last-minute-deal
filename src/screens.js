@@ -1,31 +1,48 @@
+import React from "react";
 import { Navigation } from "react-native-navigation";
+import { Provider } from "react-redux";
 
+import store from "./store";
+
+import AddDealPopup from "./Company/Dashboard/AddDealPopup";
+import CompanyDashboardPage from "./Company/Dashboard/DashboardPage";
+import CompanyDetailsPage from "./Company/Details/DetailsPage";
+import CompanySettingsPage from "./Company/Settings/SettingsPage";
+import CompanySinglePage from "./Company/Dashboard/SinglePage";
 import DashboardPage from "./Dashboard/DashboardPage";
 import FiltersPopup from "./Dashboard/FiltersPopup";
-import SinglePage from "./Dashboard/SinglePage";
-import UserProfilePage from "./UserProfile/UserProfilePage";
 import MapPage from "./Map/MapPage";
 import ReceiptsPage from "./Receipts/ReceiptsPage";
 import SettingsPage from "./Settings/SettingsPage";
+import SinglePage from "./Dashboard/SinglePage";
 import StartPage from "./auth/pages/StartPage";
-import CompanyDashboardPage from "./Company/Dashboard/DashboardPage";
-import CompanySinglePage from "./Company/Dashboard/SinglePage";
-import CompanySettingsPage from "./Company/Settings/SettingsPage";
-import CompanyDetailsPage from "./Company/Details/DetailsPage";
-import AddDealPopup from "./Company/Dashboard/AddDealPopup";
+import UserProfilePage from "./UserProfile/UserProfilePage";
 
-export const registerScreens = (store, Provider) => {
-  Navigation.registerComponent("LastMinuteDeal.StartPage", () => StartPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.DashboardPage", () => DashboardPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.FiltersPopup", () => FiltersPopup, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.SinglePage", () => SinglePage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.MapPage", () => MapPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.UserProfilePage", () => UserProfilePage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.SettingsPage", () => SettingsPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.ReceiptsPage", () => ReceiptsPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.CompanyDashboardPage", () => CompanyDashboardPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.CompanySinglePage", () => CompanySinglePage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.CompanySettingsPage", () => CompanySettingsPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.CompanyDetailsPage", () => CompanyDetailsPage, store, Provider);
-  Navigation.registerComponent("LastMinuteDeal.AddDealPopup", () => AddDealPopup, store, Provider);
-};
+const ReduxComponent = (Component, props) => (
+  <Provider store={store}>
+    <Component {...props} />
+  </Provider>
+);
+
+const ReduxWrapper = component => props => ReduxComponent(component, props);
+
+function registerComponent(name, Component) {
+  const NAME = `LastMinuteDeal.${name}`;
+  Navigation.registerComponent(NAME, () => ReduxWrapper(Component));
+}
+
+export default function registerScreens() {
+  registerComponent("AddDealPopup", AddDealPopup);
+  registerComponent("CompanyDashboardPage", CompanyDashboardPage);
+  registerComponent("CompanyDetailsPage", CompanyDetailsPage);
+  registerComponent("CompanySettingsPage", CompanySettingsPage);
+  registerComponent("CompanySinglePage", CompanySinglePage);
+  registerComponent("DashboardPage", DashboardPage);
+  registerComponent("FiltersPopup", FiltersPopup);
+  registerComponent("MapPage", MapPage);
+  registerComponent("ReceiptsPage", ReceiptsPage);
+  registerComponent("SettingsPage", SettingsPage);
+  registerComponent("SinglePage", SinglePage);
+  registerComponent("StartPage", StartPage);
+  registerComponent("UserProfilePage", UserProfilePage);
+}

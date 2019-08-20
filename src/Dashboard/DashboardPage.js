@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ScrollView, View } from "react-native";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { Spinner } from "native-base";
 import Categories from "./components/Categories";
 import Featured from "./components/Featured";
-import { showModal } from "src/utils/navUtils";
 import main from "src/common/styles";
 
 import { loadDeals } from "src/common/actions/deals.actions";
-import { openDealPage } from "src/common/actions/currentDeal.actions";
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class DashboardPage extends Component {
     this.state = {
       loading: true
     };
-    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    Navigation.events().bindComponent(this);
   }
 
   componentDidMount() {
@@ -30,12 +29,6 @@ class DashboardPage extends Component {
       console.error("Get deals failed.", error);
     }
   }
-
-  onNavigatorEvent = event => {
-    if (event.id === "iconFilter") {
-      this.openFiltersPopup();
-    }
-  };
 
   render() {
     const { loading } = this.state;
@@ -54,37 +47,70 @@ class DashboardPage extends Component {
   }
 
   openDetailsPage = deal => {
-    this.props.navigator.push({
-      screen: "LastMinuteDeal.SinglePage",
-      title: deal.title,
-      backButtonTitle: "Back",
-      passProps: deal || {}
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: "LastMinuteDeal.SinglePage",
+        passProps: {
+          deal
+        },
+        options: {
+          topBar: {
+            title: {
+              text: deal.title
+            },
+            leftButtons: [
+              {
+                text: "Back",
+                id: "backButton"
+              }
+            ]
+          }
+        }
+      }
     });
   };
 
   openFiltersPopup = () => {
-    showModal("FiltersPopup", {
-      title: "Filters",
-      navigatorButtons: {
-        leftButtons: [
+    Navigation.showModal({
+      stack: {
+        children: [
           {
-            title: "Close",
-            id: "closeFilters"
-          }
-        ],
-        rightButtons: [
-          {
-            title: "Save",
-            id: "saveFilters"
+            component: {
+              name: "LastMinuteDeal.FiltersPopup",
+              options: {
+                topBar: {
+                  title: {
+                    text: "Filters"
+                  },
+                  leftButtons: [
+                    {
+                      text: "Close",
+                      id: "closeFilters"
+                    }
+                  ],
+                  rightButtons: [
+                    {
+                      text: "Save",
+                      id: "saveFilters"
+                    }
+                  ]
+                }
+              }
+            }
           }
         ]
       }
     });
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === "iconFilter") {
+      this.openFiltersPopup();
+    }
+  }
 }
 
 DashboardPage.propTypes = {
-  navigator: PropTypes.object,
   dispatch: PropTypes.func,
   deals: PropTypes.func
 };

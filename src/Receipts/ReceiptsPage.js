@@ -56,7 +56,6 @@ class ReceiptsPage extends Component {
 }
 
 ReceiptsPage.propTypes = {
-  navigator: PropTypes.object,
   dispatch: PropTypes.func,
   receipts: PropTypes.object
 };

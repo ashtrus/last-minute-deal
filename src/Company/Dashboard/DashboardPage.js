@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ScrollView, View } from "react-native";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { Spinner } from "native-base";
 import Deals from "./components/Deals";
-import { showModal } from "src/utils/navUtils";
 import main from "src/common/styles";
 import { loadDeals } from "src/common/actions/deals.actions";
-import { openDealPage } from "src/common/actions/currentDeal.actions";
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -17,7 +16,7 @@ class DashboardPage extends Component {
     this.state = {
       loading: true
     };
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    Navigation.events().bindComponent(this);
   }
 
   componentDidMount() {
@@ -28,12 +27,6 @@ class DashboardPage extends Component {
       console.error("Get deals failed.", error);
     }
   }
-
-  onNavigatorEvent = event => {
-    if (event.id === "iconAdd") {
-      this.openAddDealPopup();
-    }
-  };
 
   render() {
     const { loading } = this.state;
@@ -53,33 +46,71 @@ class DashboardPage extends Component {
   }
 
   openDetailsPage = deal => {
-    this.props.dispatch(openDealPage(deal, this.props.navigator));
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: "LastMinuteDeal.CompanySinglePage",
+        passProps: {
+          deal
+        },
+        options: {
+          topBar: {
+            title: {
+              text: "Deal details"
+            },
+            leftButtons: [
+              {
+                text: "Back",
+                id: "backButton"
+              }
+            ]
+          }
+        }
+      }
+    });
   };
 
   openAddDealPopup = () => {
-    showModal("AddDealPopup", {
-      title: "Add new deal",
-      navigatorButtons: {
-        leftButtons: [
+    Navigation.showModal({
+      stack: {
+        children: [
           {
-            title: "Close",
-            id: "closeAddDeal"
-          }
-        ],
-        rightButtons: [
-          {
-            title: "Save",
-            id: "saveNewDeal"
+            component: {
+              name: "LastMinuteDeal.AddDealPopup",
+              passProps: { isNew: true },
+              options: {
+                topBar: {
+                  title: {
+                    text: "Add new deal"
+                  },
+                  leftButtons: [
+                    {
+                      text: "Close",
+                      id: "closeAddDeal"
+                    }
+                  ],
+                  rightButtons: [
+                    {
+                      text: "Save",
+                      id: "saveNewDeal"
+                    }
+                  ]
+                }
+              }
+            }
           }
         ]
-      },
-      props: { isNew: true }
+      }
     });
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === "iconAdd") {
+      this.openAddDealPopup();
+    }
+  }
 }
 
 DashboardPage.propTypes = {
-  navigator: PropTypes.object,
   dispatch: PropTypes.func,
   deals: PropTypes.object
 };

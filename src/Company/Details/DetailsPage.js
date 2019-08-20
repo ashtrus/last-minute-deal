@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View } from "react-native";
 import { connect } from "react-redux";
+import { Navigation } from "react-native-navigation";
 
 import { Form, Input, Item, Label } from "native-base";
 import { Button } from "src/common/components";
@@ -14,6 +15,7 @@ class CompanyDetailsPage extends Component {
     this.state = {
       companyProfile: props.settings.companyProfile
     };
+    Navigation.events().bindComponent(this);
   }
 
   render() {
@@ -85,9 +87,16 @@ class CompanyDetailsPage extends Component {
       companyProfile: { ...this.state.companyProfile, email }
     });
 
-  updateCompanyProfile = () => {
-    this.props.dispatch(updateCompanyProfile(this.state.companyProfile));
+  updateCompanyProfile = async () => {
+    await this.props.dispatch(updateCompanyProfile(this.state.companyProfile));
+    Navigation.pop(this.props.componentId);
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === "backButton") {
+      Navigation.pop(this.props.componentId);
+    }
+  }
 }
 
 CompanyDetailsPage.propTypes = {
