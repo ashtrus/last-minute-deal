@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigation } from "react-native-navigation";
 import { Provider } from "react-redux";
+import { Root } from "native-base";
 
 import store from "./store";
 
@@ -20,7 +21,9 @@ import UserProfilePage from "./UserProfile/UserProfilePage";
 
 const ReduxComponent = (Component, props) => (
   <Provider store={store}>
-    <Component {...props} />
+    <Root>
+      <Component {...props} />
+    </Root>
   </Provider>
 );
 
