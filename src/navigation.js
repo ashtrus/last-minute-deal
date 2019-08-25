@@ -50,7 +50,7 @@ export const setDefaultOptions = () =>
       visible: true,
       animate: false,
       testID: "bottomTabsBar",
-      drawBehind: true,
+      drawBehind: false,
       backgroundColor: colors.lightGray
     },
     bottomTab: {
@@ -109,7 +109,7 @@ export const userPage = async () => {
                           {
                             id: "iconFilter",
                             icon: iconsMap.filter,
-                            color: "blue"
+                            color: colors.white
                           }
                         ]
                       }
@@ -228,7 +228,7 @@ export const companyPage = async () => {
                           {
                             id: "iconAdd",
                             icon: iconsMap.plus,
-                            color: "blue"
+                            color: colors.white
                           }
                         ]
                       }
