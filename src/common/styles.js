@@ -1,5 +1,5 @@
 import { Dimensions, Platform, StyleSheet } from "react-native";
-import DeviceInfo from "react-native-device-info";
+// import DeviceInfo from "react-native-device-info";
 import colors from "./colors";
 
 const dimension = () => Dimensions.get("window");
@@ -12,7 +12,7 @@ const IPHONEX = 812;
 
 export const isIOS = () => Platform.OS === "ios";
 export const isAndroid = () => Platform.OS === "android";
-export const isEmulator = DeviceInfo.isEmulator();
+// export const isEmulator = DeviceInfo.isEmulator();
 
 export const isIphone4 = () => dimension().height === IPHONE4;
 export const isIphone5 = () => dimension().height === IPHONE5;
@@ -21,7 +21,7 @@ export const isIphone6 = () => dimension().height === IPHONE6;
 export const isIphone6Plus = () => dimension().height === IPHONE6PLUS;
 export const isIphoneX = () => dimension().height === IPHONEX;
 
-export const isTablet = DeviceInfo.isTablet();
+// export const isTablet = DeviceInfo.isTablet();
 export const isIPAD = () => Platform.isPad();
 
 export const isLandscape = () => dimension().width > dimension().height;
@@ -107,9 +107,33 @@ export default StyleSheet.create({
     borderRadius: 3
   },
   title: {
-    paddingLeft: 20,
-    paddingVertical: 10,
+    fontSize: 20,
     fontWeight: "400"
+  },
+  subtitle: {
+    fontSize: 16,
+    color: colors.black
+  },
+  caption: {
+    fontSize: 12,
+    color: colors.gray
+  },
+  center: {
+    textAlign: "center"
+  },
+  thumbnail: {
+    width: 120,
+    height: 90
+  },
+  banner: {
+    height: 200,
+    width: null,
+    flex: 1
+  },
+  avatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32
   },
   smallText: {
     color: colors.gray,

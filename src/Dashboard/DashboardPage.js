@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { ScrollView, View } from "react-native";
 import { connect } from "react-redux";
 import { Navigation } from "react-native-navigation";
-
-import { Spinner } from "native-base";
+import { Container, Content, Spinner, Text } from "native-base";
 import Categories from "./components/Categories";
 import Featured from "./components/Featured";
 import main from "src/common/styles";
@@ -32,43 +31,27 @@ class DashboardPage extends Component {
 
   render() {
     const { loading } = this.state;
-    const { deals } = this.props;
+    const {
+      componentId,
+      deals: { items }
+    } = this.props;
 
     return loading ? (
       <View style={main.containerCenter}>
         <Spinner color="blue" />
       </View>
     ) : (
-      <ScrollView>
-        <Categories />
-        <Featured deals={deals} onSelect={this.openDetailsPage} />
-      </ScrollView>
+      <Container>
+        <Content padder>
+          <ScrollView>
+            <Text style={[main.title]}>Categories</Text>
+            <Categories />
+            <Featured deals={items} componentId={componentId} />
+          </ScrollView>
+        </Content>
+      </Container>
     );
   }
-
-  openDetailsPage = deal => {
-    Navigation.push(this.props.componentId, {
-      component: {
-        name: "LastMinuteDeal.SinglePage",
-        passProps: {
-          deal
-        },
-        options: {
-          topBar: {
-            title: {
-              text: deal.title
-            },
-            leftButtons: [
-              {
-                text: "Back",
-                id: "backButton"
-              }
-            ]
-          }
-        }
-      }
-    });
-  };
 
   openFiltersPopup = () => {
     Navigation.showModal({
@@ -112,7 +95,8 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   dispatch: PropTypes.func,
-  deals: PropTypes.func
+  deals: PropTypes.func,
+  componentId: PropTypes.string
 };
 
 export default connect(state => state)(DashboardPage);

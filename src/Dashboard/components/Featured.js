@@ -1,40 +1,22 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import { FlatList } from "react-native";
-import { connect } from "react-redux";
-
-import { Title, View } from "@shoutem/ui";
+import { Text } from "native-base";
+import PropTypes from "prop-types";
 import DealItem from "./DealItem";
+import main from "src/common/styles";
 
-class Featured extends Component {
-  render() {
-    const { deals } = this.props;
-    return (
-      // prettier-ignore
-      <View>
-        <FlatList
-          data={deals.items.slice(0,5)}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-          ListHeaderComponent={
-            <Title style={{ paddingLeft: 20, paddingVertical: 10 }}>
-              Featured
-            </Title>
-          }
-        />
-      </View>
-    );
-  }
-
-  keyExtractor = item => item.id.toString();
-
-  renderItem = ({ item }) => <DealItem item={item} onSelect={this.props.onSelect} />;
-}
+const Featured = ({ deals, componentId }) => (
+  <FlatList
+    data={deals.slice(0, 5)}
+    renderItem={({ item }) => <DealItem item={item} componentId={componentId} />}
+    keyExtractor={item => item.id.toString()}
+    ListHeaderComponent={<Text style={main.title}>Featured</Text>}
+  />
+);
 
 Featured.propTypes = {
-  deals: PropTypes.object,
-  onOpen: PropTypes.func,
-  onSelect: PropTypes.func
+  deals: PropTypes.array,
+  componentId: PropTypes.string
 };
 
-export default connect(state => state)(Featured);
+export default Featured;
