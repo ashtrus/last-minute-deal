@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ScrollView, Slider } from "react-native";
-import { connect } from "react-redux";
 import { dismissModal } from "src/utils/navUtils";
 import { Navigation } from "react-native-navigation";
-
-import { Caption, Divider } from "@shoutem/ui";
+import { Container, Content, ListItem, Text } from "native-base";
 
 class FiltersPopup extends Component {
   constructor(props) {
@@ -25,19 +23,23 @@ class FiltersPopup extends Component {
   render() {
     const { sliderValue } = this.state;
     return (
-      // prettier-ignore
-      <ScrollView>
-        <Divider styleName="section-header">
-          <Caption>Distance</Caption>
-          <Caption>{sliderValue} km</Caption>
-        </Divider>
-        <Slider
-          minimumValue={0}
-          maximumValue={100}
-          step={1}
-          onValueChange={this.onSliderValueChange}
-        />
-      </ScrollView>
+      <Container>
+        <ScrollView>
+          <Content padder>
+            <ListItem itemDivider>
+              <Text>Distance</Text>
+              <Text>{sliderValue} km</Text>
+            </ListItem>
+            <Slider
+              minimumValue={0}
+              maximumValue={100}
+              value={sliderValue}
+              step={1}
+              onValueChange={this.onSliderValueChange}
+            />
+          </Content>
+        </ScrollView>
+      </Container>
     );
   }
 
@@ -52,4 +54,4 @@ class FiltersPopup extends Component {
 
 FiltersPopup.propTypes = {};
 
-export default connect(state => state)(FiltersPopup);
+export default FiltersPopup;
