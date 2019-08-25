@@ -15,7 +15,7 @@ export default class App extends Component {
     Navigation.events().registerAppLaunchedListener(() => {
       setDefaultOptions();
       store.subscribe(this.onStoreUpdate);
-      this.startApp();
+      // this.startApp();
     });
   }
 
@@ -24,7 +24,6 @@ export default class App extends Component {
       rootNavigation: { root },
       navigation: { storageLoaded }
     } = store.getState();
-    console.log("🔥 props", store.getState());
 
     if (root !== this.currentRoot && storageLoaded) {
       this.currentRoot = root;
@@ -50,4 +49,4 @@ export default class App extends Component {
   };
 }
 
-YellowBox.ignoreWarnings(["Require cycle:", "Remote debugger", "Failed prop type"]);
+YellowBox.ignoreWarnings(["Require cycle:", "Remote debugger", "Failed prop type", "Could not find image"]);
