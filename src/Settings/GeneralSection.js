@@ -1,54 +1,38 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Text, TouchableOpacity } from "react-native";
-
-import { Icon, Image, Row, View } from "@shoutem/ui";
+import React from "react";
+import { List, ListItem, Icon, Body, Right, Text } from "native-base";
 import { Divider } from "src/common/components";
-import main from "src/common/styles";
 
-const DEFAULT_IMG = require("../../assets/img/user.png");
+const GeneralSection = () => (
+  <List>
+    <Divider text="General" />
 
-class GeneralSection extends Component {
-  render() {
-    const { onPress } = this.props;
-    return (
-      <View>
-        <Divider text="General" />
+    <ListItem icon button onPress={() => {}}>
+      <Body>
+        <Text>Notifications</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
 
-        <TouchableOpacity onPress={onPress}>
-          <Row>
-            <Image styleName="small-avatar" source={DEFAULT_IMG} />
-            <Text>User profile</Text>
-          </Row>
-        </TouchableOpacity>
+    <ListItem icon button onPress={() => {}}>
+      <Body>
+        <Text>How it works?</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
 
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>Notifications</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>How it works</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>Join Last Minute Deal</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
-
-GeneralSection.propTypes = {
-  onPress: PropTypes.func
-};
+    <ListItem icon button onPress={() => {}}>
+      <Body>
+        <Text>Join Last Minute Deal</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+  </List>
+);
 
 export default GeneralSection;

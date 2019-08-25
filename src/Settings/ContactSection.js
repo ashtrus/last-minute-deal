@@ -1,39 +1,38 @@
-import React, { Component } from "react";
-import { Text, TouchableOpacity } from "react-native";
-
-import { Icon, View } from "@shoutem/ui";
+import React from "react";
+import { List, ListItem, Icon, Body, Right, Text } from "native-base";
 import { Divider } from "src/common/components";
-import main from "src/common/styles";
 
-class GeneralSection extends Component {
-  render() {
-    return (
-      <View>
-        <Divider text="Contact" />
+const ContactSection = () => (
+  <List>
+    <Divider text="Contact" />
 
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>Contact us</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
+    <ListItem icon button onPress={() => {}}>
+      <Body>
+        <Text>Contact us</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
 
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>Find us on Facebook</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
+    <ListItem icon button onPress={() => {}}>
+      <Body>
+        <Text>Find us on Facebook</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
 
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>Follow us on Instagram</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+    <ListItem icon button onPress={() => {}}>
+      <Body>
+        <Text>Follow us on Instagram</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+  </List>
+);
 
-export default GeneralSection;
+export default ContactSection;

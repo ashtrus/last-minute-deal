@@ -1,54 +1,60 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Navigation } from "react-native-navigation";
-
-import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
-import { Button, Divider } from "src/common/components";
-import { View } from "@shoutem/ui";
+import { Image } from "react-native";
+import { Container, Content, Card, CardItem, Text, Body } from "native-base";
+import { Button } from "src/common/components";
 import GeneralSection from "./GeneralSection";
 import ContactSection from "./ContactSection";
+import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
+import main from "src/common/styles";
 
-class SettingsPage extends Component {
-  render() {
-    return (
-      <View>
-        <GeneralSection onPress={this.openUserProfile} />
-        <ContactSection />
-        <Divider />
-        <Button onPress={this.onLogout}>Logout</Button>
-      </View>
-    );
-  }
+const DEFAULT_IMG = require("../../assets/img/user.png");
 
-  openUserProfile = () => {
-    Navigation.push(this.props.componentId, {
-      component: {
-        name: "LastMinuteDeal.UserProfilePage",
-        passProps: {},
-        options: {
-          topBar: {
-            title: {
-              text: "User Profile"
-            },
-            leftButtons: [
-              {
-                text: "Back",
-                id: "backButton"
-              }
-            ]
-          }
+const SettingsPage = ({ dispatch, componentId }) => (
+  <Container>
+    <Content>
+      <Card>
+        <CardItem button onPress={() => openUserProfile(componentId)}>
+          <Body>
+            <Image style={[main.avatar, { alignSelf: "center" }]} source={DEFAULT_IMG} />
+            <Text style={{ alignSelf: "center" }}>User profile</Text>
+          </Body>
+        </CardItem>
+      </Card>
+      <GeneralSection />
+      <ContactSection />
+      <Button onPress={() => dispatch(changeRoot(ROOTS.AUTH))}>Logout</Button>
+    </Content>
+  </Container>
+);
+
+const openUserProfile = componentId => {
+  Navigation.push(componentId, {
+    component: {
+      name: "LastMinuteDeal.UserProfilePage",
+      passProps: {},
+      options: {
+        topBar: {
+          title: {
+            text: "User Profile"
+          },
+          leftButtons: [
+            {
+              text: "Back",
+              id: "backButton"
+            }
+          ]
         }
       }
-    });
-  };
+    }
+  });
+};
 
-  onLogout = async () => {
-    const { dispatch } = this.props;
-    await dispatch(changeRoot(ROOTS.AUTH));
-  };
-}
+SettingsPage.propTypes = {
+  dispatch: PropTypes.func,
+  componentId: PropTypes.string
+};
 
-SettingsPage.propTypes = {};
-
-export default connect(state => state)(SettingsPage);
+export default connect()(SettingsPage);

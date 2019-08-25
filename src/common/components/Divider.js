@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text } from "react-native";
-import { ListItem } from "native-base";
+import { ListItem, Text } from "native-base";
 
-const Divider = props => (
+const Divider = ({ text }) => (
   <ListItem itemDivider>
-    <Text>{props.text}</Text>
+    <Text>{text}</Text>
   </ListItem>
 );
 

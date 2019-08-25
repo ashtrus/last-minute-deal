@@ -131,9 +131,9 @@ export default StyleSheet.create({
     flex: 1
   },
   avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32
+    width: 96,
+    height: 96,
+    borderRadius: 48
   },
   smallText: {
     color: colors.gray,
