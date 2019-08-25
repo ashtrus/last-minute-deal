@@ -4,17 +4,73 @@ import colors from "src/common/colors";
 
 export const setDefaultOptions = () =>
   Navigation.setDefaultOptions({
+    statusBar: {
+      visible: false
+    },
     layout: {
-      componentBackgroundColor: colors.blue,
-      orientation: ["portrait"],
-      direction: "locale"
+      direction: "ltr",
+      backgroundColor: "white",
+      orientation: ["portrait", "landscape"]
+    },
+    modalPresentationStyle: "overCurrentContext", // Supported styles are: 'formSheet', 'pageSheet', 'overFullScreen', 'overCurrentContext', 'currentContext', 'popover', 'fullScreen' and 'none'. On Android, only overCurrentContext and none are supported.
+    topBar: {
+      visible: true,
+      animate: true,
+      hideOnScroll: false,
+      leftButtonColor: colors.white,
+      rightButtonColor: colors.white,
+      drawBehind: true,
+      testID: "topBar",
+      title: {
+        fontSize: 16,
+        color: colors.white,
+        fontFamily: "Helvetica",
+        component: {
+          // name: "example.CustomTopBarTitle",
+          alignment: "center"
+        }
+      },
+      subtitle: {
+        fontSize: 14,
+        color: colors.white,
+        fontFamily: "Helvetica",
+        alignment: "center"
+      },
+      backButton: {
+        visible: true
+      },
+      background: {
+        color: colors.primary,
+        component: {
+          // name: "example.CustomTopBarBackground"
+        }
+      }
     },
     bottomTabs: {
-      titleDisplayMode: "alwaysShow"
+      visible: true,
+      animate: false,
+      testID: "bottomTabsBar",
+      drawBehind: true,
+      backgroundColor: colors.lightGray
     },
     bottomTab: {
-      selectedIconColor: colors.blue,
-      selectedTextColor: colors.blue
+      badgeColor: colors.red,
+      dotIndicator: {
+        color: colors.red,
+        size: 8
+      },
+      testID: "bottomTab",
+      iconColor: colors.gray,
+      selectedIconColor: colors.primary,
+      textColor: colors.darkGray,
+      selectedTextColor: colors.primary,
+      fontFamily: "Helvetica",
+      fontSize: 10
+    },
+
+    overlay: {
+      interceptTouchOutside: true,
+      handleKeyboardEvents: true
     }
   });
 
