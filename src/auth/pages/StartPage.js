@@ -1,54 +1,72 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
-
-import { Image } from "@shoutem/ui";
 import { Button, Text } from "native-base";
+import { Navigation } from "react-native-navigation";
 import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
 import main from "src/common/styles";
 import colors from "src/common/colors";
 
-const StartPage = ({ dispatch }) =>
-  // prettier-ignore
-  <View style={[main.pageContainer]}>
-    <View style={main.containerCenter}>
-      <Image
-        styleName="medium-square"
-        source={ require('../../../assets/img/app-logo.png') }
-      />
-    </View>
+class StartPage extends Component {
+  constructor(props) {
+    super(props);
+    Navigation.mergeOptions(this.props.componentId, {
+      topBar: {
+        visible: false
+      }
+    });
+  }
 
-    <View style={main.containerBottom}>
-      <Button
-        full
-        style={[styles.btnFacebook]}
-        onPress={() => dispatch(changeRoot(ROOTS.MAIN_APP))}
-      >
-        <Text>Login with Facebook</Text>
-      </Button>
+  render() {
+    const { dispatch } = this.props;
+    // prettier-ignore
+    return (
+      <View style={[main.pageContainer]}>
 
-      <Button
-        full
-        style={[styles.btnGoogle]}
-        onPress={() => dispatch(changeRoot(ROOTS.MAIN_APP))}
-      >
-        <Text>Login with Google</Text>
-      </Button>
+        <View style={main.containerCenter}>
+          <Image
+            style={{ width: 200, height: 200 }}
+            source={ require('../../../assets/img/app-logo.png') }
+          />
+        </View>
 
-      <Button
-        full
-        bordered
-        style={styles.btnBusinessLogin}
-        onPress={() => dispatch(changeRoot(ROOTS.MAIN_APP_COMPANY))}
-      >
-        <Text primary>Business Login</Text>
-      </Button>
-    </View>
-  </View>;
+        <View style={main.containerBottom}>
+
+          <Button
+            full
+            style={[styles.btnFacebook]}
+            onPress={() => dispatch(changeRoot(ROOTS.MAIN_APP))}
+          >
+            <Text>Login with Facebook</Text>
+          </Button>
+
+          <Button
+            full
+            style={[styles.btnGoogle]}
+            onPress={() => dispatch(changeRoot(ROOTS.MAIN_APP))}
+          >
+            <Text>Login with Google</Text>
+          </Button>
+
+          <Button
+            full
+            bordered
+            style={styles.btnBusinessLogin}
+            onPress={() => dispatch(changeRoot(ROOTS.MAIN_APP_COMPANY))}
+          >
+            <Text primary>Business Login</Text>
+          </Button>
+          
+        </View>
+      </View>
+    )
+  }
+}
 
 StartPage.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
+  componentId: PropTypes.string
 };
 
 export default connect()(StartPage);
