@@ -1,11 +1,10 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Alert, ScrollView, View, Text } from "react-native";
-import { connect } from "react-redux";
+import { Alert, ScrollView, View, Image } from "react-native";
 import { Navigation } from "react-native-navigation";
-
-import { Title, Caption, Image, Subtitle, Row } from "@shoutem/ui";
+import { Container, Content, Row, Text } from "native-base";
 import Button from "src/common/components/Button";
+import main from "src/common/styles";
 
 const DEFAULT_IMG = require("../../assets/img/massage.jpg");
 
@@ -16,31 +15,34 @@ class SinglePage extends PureComponent {
   }
 
   render() {
-    const { title, body, imgUrl } = this.props;
+    const {
+      deal: { title, body, imgUrl }
+    } = this.props;
 
     return (
-      <ScrollView>
-        <Image styleName="large-banner" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
+      <Container>
+        <ScrollView>
+          <Image style={main.banner} source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
 
-        <View style={{ padding: 10 }}>
-          <Title>{title}</Title>
+          <Content padder>
+            <Text style={main.title}>{title}</Text>
 
-          <Row>
-            <Caption>14d 18:30</Caption>
-            <Caption>100/30</Caption>
-          </Row>
+            <Row style={{ flex: 1, justifyContent: "space-between", paddingVertical: 20 }}>
+              <Text style={main.subtitle}>14d 18:30</Text>
+              <Text style={main.subtitle}>100/30</Text>
+            </Row>
 
-          <Text>{body}</Text>
-          <Text>{body}</Text>
+            <Text style={main.subtitle}>{body}</Text>
 
-          <View style={{ paddingVertical: 20 }}>
-            <Subtitle>CVR: 12345678</Subtitle>
-            <Subtitle>Street 212 3th København 2300</Subtitle>
-          </View>
+            <View style={{ paddingVertical: 20 }}>
+              <Text>CVR: 12345678</Text>
+              <Text>Street 212 3th København 2300</Text>
+            </View>
 
-          <Button onPress={this.onBook}>Book</Button>
-        </View>
-      </ScrollView>
+            <Button onPress={this.onBook}>Book</Button>
+          </Content>
+        </ScrollView>
+      </Container>
     );
   }
 
@@ -75,9 +77,8 @@ class SinglePage extends PureComponent {
 }
 
 SinglePage.propTypes = {
-  title: PropTypes.string,
-  body: PropTypes.string,
-  imgUrl: PropTypes.string
+  deal: PropTypes.objectOf,
+  componentId: PropTypes.string
 };
 
-export default connect(state => state)(SinglePage);
+export default SinglePage;
