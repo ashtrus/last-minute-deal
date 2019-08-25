@@ -19,7 +19,7 @@ export const setDefaultOptions = () =>
       hideOnScroll: false,
       leftButtonColor: colors.white,
       rightButtonColor: colors.white,
-      drawBehind: true,
+      drawBehind: false,
       testID: "topBar",
       title: {
         fontSize: 16,
