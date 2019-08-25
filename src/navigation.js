@@ -15,7 +15,7 @@ export const setDefaultOptions = () =>
     modalPresentationStyle: "overCurrentContext", // Supported styles are: 'formSheet', 'pageSheet', 'overFullScreen', 'overCurrentContext', 'currentContext', 'popover', 'fullScreen' and 'none'. On Android, only overCurrentContext and none are supported.
     topBar: {
       visible: true,
-      animate: true,
+      animate: false,
       hideOnScroll: false,
       leftButtonColor: colors.white,
       rightButtonColor: colors.white,
@@ -85,11 +85,6 @@ export const startPage = () =>
             }
           }
         ]
-      },
-      options: {
-        topBar: {
-          visible: false
-        }
       }
     }
   });
