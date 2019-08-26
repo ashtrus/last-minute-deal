@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import { Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { Navigation } from "react-native-navigation";
-
-import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
+import { Container, Content, Body, List, ListItem, Right, Icon, Switch } from "native-base";
 import { Button, Divider } from "src/common/components";
-import { Icon, Switch, View } from "@shoutem/ui";
-import main from "src/common/styles";
-
+import { changeRoot, ROOTS } from "src/common/actions/rootNavigation.actions";
 import { updateNotification } from "src/common/actions/settings.actions";
+
 class SettingsPage extends Component {
   constructor(props) {
     super(props);
@@ -24,25 +22,37 @@ class SettingsPage extends Component {
     } = this.props;
 
     return (
-      <View>
-        <TouchableOpacity style={main.listItem} onPress={this.openCompanyProfile}>
-          <View styleName="space-between horizontal">
-            <Text>Company details</Text>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </View>
-        </TouchableOpacity>
+      <Container>
+        <Content padder>
+          <List>
+            <ListItem icon>
+              <Body>
+                <TouchableOpacity onPress={this.openCompanyProfile}>
+                  <Text>Company details</Text>
+                </TouchableOpacity>
+              </Body>
+              <Right>
+                <Icon active name="arrow-forward" />
+              </Right>
+            </ListItem>
 
-        <TouchableOpacity style={main.listItem}>
-          <View styleName="space-between horizontal">
-            <Text>Notify about new bookings</Text>
-            <Switch onValueChange={this.onNotificationsChange} value={enabled} />
-          </View>
-        </TouchableOpacity>
+            <ListItem icon>
+              <Body>
+                <TouchableOpacity onPress={() => {}}>
+                  <Text>Notify about new bookings</Text>
+                </TouchableOpacity>
+              </Body>
+              <Right>
+                <Switch onValueChange={this.onNotificationsChange} value={enabled} />
+              </Right>
+            </ListItem>
 
-        <Divider />
+            <Divider />
 
-        <Button onPress={this.onLogout}>Logout</Button>
-      </View>
+            <Button onPress={this.onLogout}>Logout</Button>
+          </List>
+        </Content>
+      </Container>
     );
   }
 
@@ -73,14 +83,14 @@ class SettingsPage extends Component {
   };
 
   onLogout = async () => {
-    const { dispatch } = this.props;
-    await dispatch(changeRoot(ROOTS.AUTH));
+    await this.props.dispatch(changeRoot(ROOTS.AUTH));
   };
 }
 
 SettingsPage.propTypes = {
   dispatch: PropTypes.func,
-  settings: PropTypes.object
+  settings: PropTypes.object,
+  componentId: PropTypes.string
 };
 
 export default connect(state => state)(SettingsPage);
