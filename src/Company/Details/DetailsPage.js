@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View } from "react-native";
 import { connect } from "react-redux";
 import { Navigation } from "react-native-navigation";
 
-import { Form, Input, Item, Label } from "native-base";
+import { Container, Content, Form, Input, Item, Label } from "native-base";
 import { Button } from "src/common/components";
 
 import { updateCompanyProfile } from "src/common/actions/settings.actions";
 class CompanyDetailsPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       companyProfile: props.settings.companyProfile
     };
@@ -25,45 +23,47 @@ class CompanyDetailsPage extends Component {
 
     return (
       // prettier-ignore
-      <View>
-        <Form>
-          <Item floatingLabel>
-            <Label>Company Name</Label>
-            <Input
-              value={name}
-              onChangeText={this.onChangeName} 
-            />
-          </Item>
+      <Container>
+        <Content padder>
+          <Form>
+            <Item floatingLabel>
+              <Label>Company Name</Label>
+              <Input
+                value={name}
+                onChangeText={this.onChangeName} 
+              />
+            </Item>
 
-          <Item floatingLabel>
-            <Label>Address</Label>
-            <Input 
-              value={address}
-              onChangeText={this.onChangeAddress}
-            />
-          </Item>
+            <Item floatingLabel>
+              <Label>Address</Label>
+              <Input 
+                value={address}
+                onChangeText={this.onChangeAddress}
+              />
+            </Item>
 
-          <Item floatingLabel>
-            <Label>Phone</Label>
-            <Input
-              value={phone}
-              keyboardType={"numeric"}
-              onChangeText={this.onChangePhone}
-            />
-          </Item>
+            <Item floatingLabel>
+              <Label>Phone</Label>
+              <Input
+                value={phone}
+                keyboardType={"numeric"}
+                onChangeText={this.onChangePhone}
+              />
+            </Item>
 
-          <Item floatingLabel>
-            <Label>Email</Label>
-            <Input
-              value={email}
-              keyboardType={"email-address"}
-              onChangeText={this.onChangeEmail}
-            />
-          </Item>
-        </Form>
+            <Item floatingLabel>
+              <Label>Email</Label>
+              <Input
+                value={email}
+                keyboardType={"email-address"}
+                onChangeText={this.onChangeEmail}
+              />
+            </Item>
+          </Form>
 
-        <Button onPress={this.updateCompanyProfile}>Save</Button>
-      </View>
+          <Button onPress={this.updateCompanyProfile}>Save</Button>
+        </Content>
+      </Container>
     );
   }
 
@@ -101,7 +101,8 @@ class CompanyDetailsPage extends Component {
 
 CompanyDetailsPage.propTypes = {
   dispatch: PropTypes.func,
-  settings: PropTypes.func
+  settings: PropTypes.func,
+  componentId: PropTypes.string
 };
 
 export default connect(state => state)(CompanyDetailsPage);
