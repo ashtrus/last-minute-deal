@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { ScrollView, View } from "react-native";
 import { connect } from "react-redux";
 import { Navigation } from "react-native-navigation";
-
-import { Spinner } from "native-base";
+import { Container, Content, Spinner } from "native-base";
 import Deals from "./components/Deals";
 import main from "src/common/styles";
 import { loadDeals } from "src/common/actions/deals.actions";
@@ -31,6 +30,7 @@ class DashboardPage extends Component {
   render() {
     const { loading } = this.state;
     const {
+      componentId,
       deals: { items }
     } = this.props;
 
@@ -39,35 +39,15 @@ class DashboardPage extends Component {
         <Spinner color="blue" />
       </View>
     ) : (
-      <ScrollView>
-        <Deals deals={items} onSelect={this.openDetailsPage} />
-      </ScrollView>
+      <Container>
+        <Content padder>
+          <ScrollView>
+            <Deals deals={items} componentId={componentId} />
+          </ScrollView>
+        </Content>
+      </Container>
     );
   }
-
-  openDetailsPage = deal => {
-    Navigation.push(this.props.componentId, {
-      component: {
-        name: "LastMinuteDeal.CompanySinglePage",
-        passProps: {
-          deal
-        },
-        options: {
-          topBar: {
-            title: {
-              text: "Deal details"
-            },
-            leftButtons: [
-              {
-                text: "Back",
-                id: "backButton"
-              }
-            ]
-          }
-        }
-      }
-    });
-  };
 
   openAddDealPopup = () => {
     Navigation.showModal({
@@ -112,7 +92,8 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   dispatch: PropTypes.func,
-  deals: PropTypes.object
+  deals: PropTypes.object,
+  componentId: PropTypes.string
 };
 
 export default connect(state => state)(DashboardPage);
