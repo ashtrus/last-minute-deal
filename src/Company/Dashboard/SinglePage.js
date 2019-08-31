@@ -1,13 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Alert, ScrollView, Text } from "react-native";
-import { connect } from "react-redux";
+import { Alert, ScrollView, Image, View } from "react-native";
 import { Navigation } from "react-native-navigation";
-
-import { Title, Caption, Image, Subtitle, Row, View } from "@shoutem/ui";
-import { Grid, Col } from "native-base";
+import { Container, Content, Row, Grid, Col, Text } from "native-base";
 import Button from "src/common/components/Button";
 import { deleteDeal } from "src/common/actions/deals.actions";
+import main from "src/common/styles";
 
 const DEFAULT_IMG = require("../../../assets/img/massage.jpg");
 
@@ -19,51 +17,53 @@ class SinglePage extends PureComponent {
 
   render() {
     const {
-      currentDeal: {
+      deal: {
         title,
-        description = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, doloremque. Delectus quis inventore consequatur ex ut praesentium maxime cupiditate aliquid iure culpa repudiandae totam provident quisquam nisi, quaerat eaque dolores.`,
+        body,
         time = "14:00 - 15:00",
         address = "Branch address",
         discountedPrice = 100,
         originalPrice = 500,
-        imgUrl
+        imgUrl,
+        cvr = 12345678
       }
     } = this.props;
 
     return (
-      <ScrollView>
-        <Image styleName="large-banner" source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
+      <Container>
+        <ScrollView>
+          <Image style={main.banner} source={Boolean(imgUrl) ? { uri: imgUrl } : DEFAULT_IMG} />
 
-        <View style={{ padding: 10 }}>
-          <Title>{title}</Title>
+          <Content padder>
+            <Text style={main.title}>{title}</Text>
 
-          <Row>
-            <View styleName="horizontal space-between">
-              <Caption>{time}</Caption>
-              <Caption>
+            <Row style={{ flex: 1, justifyContent: "space-between", paddingVertical: 20 }}>
+              <Text style={main.caption}>{time}</Text>
+              <Text style={main.caption}>
                 ${discountedPrice} / ${originalPrice}
-              </Caption>
+              </Text>
+            </Row>
+
+            <Text style={main.subtitle}>{body}</Text>
+
+            <View style={{ paddingVertical: 20 }}>
+              <Text style={main.subtitle}>{address}</Text>
+              <Text style={main.subtitle}>CVR: {cvr}</Text>
             </View>
-          </Row>
 
-          <Text>{description}</Text>
-
-          <View style={{ paddingVertical: 20 }}>
-            <Subtitle>{address}</Subtitle>
-          </View>
-
-          <Grid>
-            <Col>
-              <Button btnStyle={{ borderColor: "red" }} txtStyle={{ color: "red" }} onPress={this.onDelete}>
-                Delete
-              </Button>
-            </Col>
-            <Col>
-              <Button onPress={this.onEdit}>Edit</Button>
-            </Col>
-          </Grid>
-        </View>
-      </ScrollView>
+            <Grid>
+              <Col>
+                <Button btnStyle={{ borderColor: "red" }} txtStyle={{ color: "red" }} onPress={this.onDelete}>
+                  Delete
+                </Button>
+              </Col>
+              <Col>
+                <Button onPress={this.onEdit}>Edit</Button>
+              </Col>
+            </Grid>
+          </Content>
+        </ScrollView>
+      </Container>
     );
   }
 
@@ -75,7 +75,7 @@ class SinglePage extends PureComponent {
           {
             component: {
               name: "LastMinuteDeal.AddDealPopup",
-              passProps: { deal: this.props.currentDeal, isNew: false },
+              passProps: { deal: this.props.deal, isNew: false },
               options: {
                 topBar: {
                   title: {
@@ -105,7 +105,8 @@ class SinglePage extends PureComponent {
   onDelete = () => {
     const {
       dispatch,
-      currentDeal: { id }
+      deal: { id },
+      componentId
     } = this.props;
 
     Alert.alert(
@@ -121,7 +122,7 @@ class SinglePage extends PureComponent {
           text: "OK",
           onPress: () => {
             dispatch(deleteDeal(id));
-            Navigation.pop(this.props.componentId);
+            Navigation.pop(componentId);
           }
         }
       ],
@@ -148,6 +149,10 @@ class SinglePage extends PureComponent {
   }
 }
 
-SinglePage.propTypes = { dispatch: PropTypes.func, currentDeal: PropTypes.func };
+SinglePage.propTypes = {
+  dispatch: PropTypes.func,
+  deal: PropTypes.object,
+  componentId: PropTypes.string
+};
 
-export default connect(state => state)(SinglePage);
+export default SinglePage;
