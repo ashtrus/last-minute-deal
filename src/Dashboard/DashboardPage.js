@@ -95,7 +95,7 @@ class DashboardPage extends Component {
 
 DashboardPage.propTypes = {
   dispatch: PropTypes.func,
-  deals: PropTypes.func,
+  deals: PropTypes.object,
   componentId: PropTypes.string
 };
 

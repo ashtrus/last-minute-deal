@@ -115,7 +115,7 @@ class AddDealPopup extends Component {
 
 AddDealPopup.propTypes = {
   dispatch: PropTypes.func,
-  deal: PropTypes.obj,
+  deal: PropTypes.object,
   isNew: PropTypes.bool
 };
 

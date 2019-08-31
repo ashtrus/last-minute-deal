@@ -13,9 +13,9 @@ export default Button;
 
 Button.propTypes = {
   onPress: PropTypes.func,
-  btnStyle: PropTypes.func,
-  txtStyle: PropTypes.func,
-  children: PropTypes.any
+  btnStyle: PropTypes.object,
+  txtStyle: PropTypes.object,
+  children: PropTypes.string
 };
 
 const styles = StyleSheet.create({
