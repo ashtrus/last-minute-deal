@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Alert, ScrollView, Image, View } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { Container, Content, Row, Grid, Col, Text } from "native-base";
@@ -155,4 +156,4 @@ SinglePage.propTypes = {
   componentId: PropTypes.string
 };
 
-export default SinglePage;
+export default connect()(SinglePage);
