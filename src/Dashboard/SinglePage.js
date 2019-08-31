@@ -16,7 +16,16 @@ class SinglePage extends PureComponent {
 
   render() {
     const {
-      deal: { title, body, imgUrl }
+      deal: {
+        title,
+        body,
+        imgUrl,
+        time = "14:00 - 15:00",
+        address = "Street 212 3th København 2300",
+        discountedPrice = 100,
+        originalPrice = 500,
+        cvr = 12345678
+      }
     } = this.props;
 
     return (
@@ -28,15 +37,17 @@ class SinglePage extends PureComponent {
             <Text style={main.title}>{title}</Text>
 
             <Row style={{ flex: 1, justifyContent: "space-between", paddingVertical: 20 }}>
-              <Text style={main.subtitle}>14d 18:30</Text>
-              <Text style={main.subtitle}>100/30</Text>
+              <Text style={main.caption}>{time}</Text>
+              <Text style={main.caption}>
+                ${discountedPrice} / ${originalPrice}
+              </Text>
             </Row>
 
             <Text style={main.subtitle}>{body}</Text>
 
             <View style={{ paddingVertical: 20 }}>
-              <Text>CVR: 12345678</Text>
-              <Text>Street 212 3th København 2300</Text>
+              <Text>CVR: {cvr}</Text>
+              <Text>{address}</Text>
             </View>
 
             <Button onPress={this.onBook}>Book</Button>
@@ -77,7 +88,7 @@ class SinglePage extends PureComponent {
 }
 
 SinglePage.propTypes = {
-  deal: PropTypes.objectOf,
+  deal: PropTypes.object,
   componentId: PropTypes.string
 };
 
