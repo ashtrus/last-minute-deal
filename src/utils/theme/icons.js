@@ -1,6 +1,7 @@
-import Ionicons from "react-native-vector-icons/Ionicons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import Entypo from "react-native-vector-icons/Entypo";
 import { PixelRatio } from "react-native";
 import { isAndroid } from "src/common/styles";
 
@@ -9,18 +10,18 @@ const navIconSize = isAndroid() ? PixelRatio.getPixelSizeForLayoutSize(25) : 25;
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 
 const icons = {
-  home: [navIconSize, MaterialCommunityIcons],
-  filter: [navIconSize, MaterialCommunityIcons],
-  "ios-search": [navIconSize, Ionicons],
-  calendar: [navIconSize, MaterialCommunityIcons],
-  map: [navIconSize, MaterialCommunityIcons],
-  "map-marker": [navIconSize, MaterialCommunityIcons],
-  settings: [navIconSize, MaterialCommunityIcons],
+  home: [navIconSize, AntDesign],
+  filter: [navIconSize, AntDesign],
+  search: [navIconSize, AntDesign],
+  calendar: [navIconSize, AntDesign],
+  location: [navIconSize, Entypo],
+  settings: [navIconSize, SimpleLineIcons],
   receipt: [navIconSize, MaterialCommunityIcons],
-  user: [navIconSize, SimpleLineIcons],
-  logout: [navIconSize, SimpleLineIcons],
-  heart: [navIconSize, SimpleLineIcons],
-  plus: [navIconSize, MaterialCommunityIcons]
+  user: [navIconSize, AntDesign],
+  logout: [navIconSize, AntDesign],
+  heart: [navIconSize, AntDesign],
+  plus: [navIconSize, AntDesign],
+  close: [navIconSize, AntDesign]
 };
 
 const iconsMap = {};

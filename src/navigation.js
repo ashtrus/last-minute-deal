@@ -144,7 +144,7 @@ export const userPage = async () => {
               ],
               options: {
                 bottomTab: {
-                  icon: iconsMap.map,
+                  icon: iconsMap.location,
                   testID: "MapTab",
                   text: "Map"
                 }
@@ -288,7 +288,7 @@ export const companyPage = async () => {
               ],
               options: {
                 bottomTab: {
-                  icon: iconsMap.receipt,
+                  icon: iconsMap.settings,
                   testID: "CompanySettingsPageTab",
                   text: "Settings"
                 }
