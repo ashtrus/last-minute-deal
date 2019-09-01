@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ScrollView, Slider } from "react-native";
+import { ScrollView } from "react-native";
+import Slider from "@react-native-community/slider";
 import { dismissModal } from "src/utils/navUtils";
 import { Navigation } from "react-native-navigation";
 import { Container, Content, ListItem, Text } from "native-base";

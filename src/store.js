@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { persistStore, autoRehydrate } from "redux-persist";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import rootReducer from "./rootReducer";
 
 const persistVersion = 1;
